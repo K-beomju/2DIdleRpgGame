@@ -2,15 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum State
+{
+    Run,
+    Attack
+};
+
+
 public class Player : MonoBehaviour
 {
-
+   public State state {get; private set;}
    private Animator animator;
 
    public Transform attackPoint;
    public float attackRange  = 0.5f;
    public LayerMask enemyLayers;
    private float Times;
+   private float attackDamage = 1f;
 
     void Start()
     {
@@ -32,11 +40,12 @@ public class Player : MonoBehaviour
     void Attack()
     {
         animator.SetTrigger("Attack");
-         Collider2D[] hitEnemis = Physics2D.OverlapCircleAll(attackPoint.position , attackRange, enemyLayers);
+         Collider2D[] hitEnemis = Physics2D.OverlapCircleAll(attackPoint.position , attackRange);
 
         foreach(Collider2D enemy in hitEnemis)
         {
-          FindObjectOfType<SpawnManager>().enemyList[0].GetComponent<Enemy>().OnDamage(1);
+            enemy.GetComponent<EnemyHealth>().OnDamage(attackDamage);
+
         }
     }
     void Run()
