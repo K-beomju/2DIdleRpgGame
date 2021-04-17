@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyMove : Poolable
+public class EnemyMove : MonoBehaviour
 {
     public float speed = 1f;
     Vector3 target = new Vector3(0.2f, 2.47f, 0);
@@ -16,5 +16,7 @@ public class EnemyMove : Poolable
     {
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
+
+
 
 }

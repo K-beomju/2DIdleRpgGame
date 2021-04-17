@@ -5,17 +5,19 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 
-    Vector2 Vec = new Vector3(3f,  2.45f); // 생성 위치
+    Vector2 Vec = new Vector3(3f, 2.5f); // 생성 위치
 
 
-    private bool isCreate = true;
+    public static bool isCreate = true;
+    private float createTime;
 
     void Update()
     {
-        if(isCreate)
+        if(createTime < Time.time )
         {
            PoolManager.Instance.pool.Pop().transform.position = Vec;
-            isCreate = false;
+
+            createTime = Time.time + 3f;
         }
     }
 

@@ -61,4 +61,5 @@ public class ObjPool : MonoBehaviour
         obj.gameObject.SetActive(false);
         poolStack.Push(obj);
     }
+
 }
