@@ -68,15 +68,15 @@ public class ObjectPooling : MonoBehaviour
 
     void Update()
     {
-        FireBulet();
+        SpawnEnemy();
     }
 
 
-     Vector2 Vec = new Vector3(3f, 2.5f); // 생성 위치
+     Vector2 Vec = new Vector3(5f, 2.31f); // 생성 위치
     public bool isCreate;
 
     //총알 발사
-    void FireBulet()
+    void SpawnEnemy()
     {
         if (isCreate)
         {

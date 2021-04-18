@@ -19,22 +19,28 @@ public class Player : MonoBehaviour
     public AudioClip AttackClip;
     private AudioSource playerAudioSource;
 
+
+
+
     void Start()
     {
         animator = GetComponent<Animator>();
         playerAudioSource = GetComponent<AudioSource>();
+
+
     }
     void Update()
     {
         if (Physics2D.Raycast(transform.position, transform.right, 0.5f))
         {
             animator.SetBool("isAttack",true);
-            // playerAudioSource.Play();
+
         }
         else
         {
             animator.SetBool("isAttack",false);
             playerAudioSource.Stop();
+
         }
 
     }
@@ -54,6 +60,9 @@ public class Player : MonoBehaviour
 
         }
     }
+
+
+
 
 
     void OnDrawGizmos()
