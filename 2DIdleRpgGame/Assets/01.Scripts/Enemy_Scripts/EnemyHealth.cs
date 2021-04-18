@@ -5,10 +5,22 @@ using UnityEngine.UI;
 
 public class EnemyHealth : LivingEntity
 {
+    [Header("체력 설정란 health 건들지 마셈")]
     public float hp;
-   void Start()
+    public Vector3 offset;
+
+    void Start()
     {
         SetEntityDefault(hp);
+          slider.maxValue = maxHealth;
+          slider.value = health;
+
+    }
+
+
+     void Update()
+    {
+        slider.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset);
     }
 
 

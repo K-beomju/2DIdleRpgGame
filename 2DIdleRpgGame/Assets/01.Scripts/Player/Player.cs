@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-               animator.SetBool("isAttack",false);
+            animator.SetBool("isAttack",false);
         }
 
     }

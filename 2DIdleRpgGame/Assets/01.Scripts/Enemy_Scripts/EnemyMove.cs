@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyMove : MonoBehaviour
 {
     public float speed = 1f;
-    Vector3 target = new Vector3(0.2f, 2.47f, 0);
+    public Vector3 target = new Vector3(0.2f, 2.47f, 0);
 
     void FixedUpdate()
     {
