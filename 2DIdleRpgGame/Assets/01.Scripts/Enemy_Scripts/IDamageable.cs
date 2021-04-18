@@ -2,6 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamgeable {
+public interface IDamageable  {
     void OnDamage(float damage);
 }

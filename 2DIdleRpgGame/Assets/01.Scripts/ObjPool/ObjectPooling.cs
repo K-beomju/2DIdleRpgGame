@@ -24,13 +24,13 @@ public class ObjectPooling : MonoBehaviour
    }
 
      //적 프리팹
-    public EnemyMove poolObj_Goblin;
-    public EnemyMove poolObj_Skeleton;
-    public EnemyMove poolObj_Bat;
+    public LivingEntity poolObj_Goblin;
+    public LivingEntity poolObj_Skeleton;
+    public LivingEntity poolObj_Bat;
     [Space(30)]
 
     //적 Pool
-    public List<EnemyMove> Enemys = new List<EnemyMove>();
+    public List<LivingEntity> Enemys = new List<LivingEntity>();
     //내가 생성할 적들의 갯수
     private readonly int EnemyCount = 3;
 
@@ -45,19 +45,19 @@ public class ObjectPooling : MonoBehaviour
         {
             if(i % 2 == 1)
             {
-            EnemyMove b = Instantiate<EnemyMove>(poolObj_Goblin);
+            LivingEntity b = Instantiate<LivingEntity>(poolObj_Goblin);
             b.gameObject.SetActive(false);
             Enemys.Add(b);
             }
              if(i % 2 == 0)
             {
-            EnemyMove c = Instantiate<EnemyMove>(poolObj_Skeleton);
+            LivingEntity c = Instantiate<LivingEntity>(poolObj_Skeleton);
             c.gameObject.SetActive(false);
             Enemys.Add(c);
             }
            else
             {
-            EnemyMove d = Instantiate<EnemyMove>(poolObj_Bat);
+            LivingEntity d = Instantiate<LivingEntity>(poolObj_Bat);
             d.gameObject.SetActive(false);
             Enemys.Add(d);
             }

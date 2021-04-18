@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5236621124892081368}
   - component: {fileID: 7192713742314991305}
   - component: {fileID: 1476357373299647518}
-  - component: {fileID: 1408207497944852188}
+  - component: {fileID: 7554560991828660624}
   m_Layer: 6
   m_Name: Bat
   m_TagString: Untagged
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
---- !u!114 &1408207497944852188
+--- !u!114 &7554560991828660624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,7 +216,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8439593827322578299}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11a4edce8f8d5aa4e94380f789f7b9c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 85903b91e5ef37446aefdf9b8b41d902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 5
+  health: 10
+  hp: 13
