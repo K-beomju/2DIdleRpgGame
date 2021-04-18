@@ -93,9 +93,8 @@ GameObject:
   - component: {fileID: 3539518527182708496}
   - component: {fileID: 3539518527182708497}
   - component: {fileID: 3539518527182708502}
-  - component: {fileID: 3539518527182708503}
   - component: {fileID: 3539518527182708500}
-  - component: {fileID: 8658036422267667738}
+  - component: {fileID: 3539518527182708503}
   m_Layer: 6
   m_Name: Goblin
   m_TagString: Untagged
@@ -195,19 +194,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.33, y: 0.34}
   m_EdgeRadius: 0
---- !u!114 &3539518527182708503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3539518527182708501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11a4edce8f8d5aa4e94380f789f7b9c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 10
 --- !u!114 &3539518527182708500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
---- !u!114 &8658036422267667738
+--- !u!114 &3539518527182708503
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,6 +216,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3539518527182708501}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85903b91e5ef37446aefdf9b8b41d902, type: 3}
+  m_Script: {fileID: 11500000, guid: 11a4edce8f8d5aa4e94380f789f7b9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 4

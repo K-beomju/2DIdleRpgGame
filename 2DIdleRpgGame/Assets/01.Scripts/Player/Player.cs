@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     {
         if (Physics2D.Raycast(transform.position, transform.right, 0.5f))
         {
-           animator.SetBool("isAttack",true);
+            animator.SetBool("isAttack",true);
         }
         else
         {

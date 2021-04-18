@@ -17,33 +17,41 @@ public class ObjPool : MonoBehaviour
 
     private Stack<Poolable> poolStack = new Stack<Poolable>();
 
+    private int count;
+
 
     void Start()
     {
+
         Allocate();
     }
     public void Allocate()
     {
-        for (int i = 0; i < allocateCount; i++)
+
+        for (int i = 0; i <= allocateCount; i++)
         {
-            if (i % 3 == 1)
+
+            if (poolObj_Skeleton.enabled)
             {
                  Poolable allocateObj_Skeletone = Instantiate(poolObj_Skeleton, this.gameObject.transform);
                 allocateObj_Skeletone.Create(this);
                 poolStack.Push(allocateObj_Skeletone);
 
+
             }
-            else if (i % 2 == 1)
+            if (poolObj_Goblin.enabled)
             {
                  Poolable allocateObj_Goblin = Instantiate(poolObj_Goblin, this.gameObject.transform);
                 allocateObj_Goblin.Create(this);
                 poolStack.Push(allocateObj_Goblin);
+
             }
-            else
+            if(poolObj_Bat.enabled)
             {
                 Poolable allocateObj_Bat = Instantiate(poolObj_Bat, this.gameObject.transform);
                 allocateObj_Bat.Create(this);
                 poolStack.Push(allocateObj_Bat);
+
 
             }
 

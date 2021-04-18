@@ -15,17 +15,26 @@ public class Poolable : MonoBehaviour,IDamgeable
    public virtual void Push()
    {
       pool.Push(this);
+      hp = 10f;
    }
 
-    public float hp = 2;
+    public float hp;
+
+    void Start()
+    {
+        hp = 10;
+    }
+
+
      public void OnDamage(float damage)
     {
         hp -= damage;
+
         if (hp <= 0)
         {
-            SpawnManager.isCreate = true;
-            Debug.Log("적 죽음");
-            Push();
+           gameObject.SetActive(false);
+            ObjectPooling.Instance.isCreate = true;
+
         }
 
     }

@@ -8,16 +8,21 @@ public class SpawnManager : MonoBehaviour
     Vector2 Vec = new Vector3(3f, 2.5f); // 생성 위치
 
 
-    public static bool isCreate = true;
+    public static bool isCreate;
     private float createTime;
+
+    void Start()
+    {
+        isCreate = true;
+    }
 
     void Update()
     {
-        if(createTime < Time.time )
+        if(createTime < Time.time && isCreate)
         {
            PoolManager.Instance.pool.Pop().transform.position = Vec;
-
-            createTime = Time.time + 3f;
+            isCreate = false;
+            createTime = Time.time + 5f;
         }
     }
 
