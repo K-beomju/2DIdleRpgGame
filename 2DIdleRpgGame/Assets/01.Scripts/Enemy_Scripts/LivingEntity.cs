@@ -34,6 +34,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
         health -= damage;
         slider.value = health;
+
         if (health <= 0)
         {
             gameObject.SetActive(false);
@@ -42,6 +43,8 @@ public class LivingEntity : MonoBehaviour, IDamageable
         }
 
     }
+
+
 
 
 
