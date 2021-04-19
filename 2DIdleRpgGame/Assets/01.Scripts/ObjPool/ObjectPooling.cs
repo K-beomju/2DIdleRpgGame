@@ -61,7 +61,6 @@ public class ObjectPooling : MonoBehaviour
             else
             {
                 LivingEntity d = Instantiate<LivingEntity>(poolObj_Bat);
-
                 d.gameObject.SetActive(false);
                 Enemys.Add(d);
             }
@@ -76,7 +75,7 @@ public class ObjectPooling : MonoBehaviour
     }
 
 
-    Vector2 Vec = new Vector3(3f, 2.4f); // 생성 위치
+    Vector2 Vec = new Vector3(5f, 2.4f); // 생성 위치
     public bool isCreate;
 
     //총알 발사
