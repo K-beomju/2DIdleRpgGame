@@ -31,12 +31,11 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
     public virtual void OnDamage(float damage)
     {
-
         health -= damage;
-        slider.value = health;
-
+      //  slider.value = health; // -> Enemy Health Update이전
         if (health <= 0)
         {
+
             gameObject.SetActive(false);
             ObjectPooling.Instance.isCreate = true;
 
@@ -44,25 +43,4 @@ public class LivingEntity : MonoBehaviour, IDamageable
 
     }
 
-
-
-
-
-
-    //  public void Die() // Die 처리
-    // {
-    //     if (onDeath != null) //onDeath 이벤트에 등록된 메서드가 있다면 실행
-    //     {
-    //         onDeath();
-    //     }
-    //     dead = true;
-    // }
-
-    // public void Hit() // Hit 처리
-    // {
-    //     if (onHit != null) //onHit 이벤트에 등록된 메서드가 있다면 실행
-    //     {
-    //         onHit();
-    //     }
-    // }
 }

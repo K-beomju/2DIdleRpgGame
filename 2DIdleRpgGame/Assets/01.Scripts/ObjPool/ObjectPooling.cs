@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class ObjectPooling : MonoBehaviour
 {
-  private static ObjectPooling instance;
-   public static ObjectPooling Instance
-   {
-       get
-       {
-           return instance;
-       }
-   }
+    private static ObjectPooling instance;
+    public static ObjectPooling Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
     private void Awake()
-   {
-       if(instance)
-       {
-           Destroy(gameObject);
-           return;
-       }
-       instance = this;
-   }
+    {
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
 
-     //적 프리팹
+    //적 프리팹
     public LivingEntity poolObj_Goblin;
     public LivingEntity poolObj_Skeleton;
     public LivingEntity poolObj_Bat;
@@ -40,26 +40,30 @@ public class ObjectPooling : MonoBehaviour
 
     void Start()
     {
-          isCreate = true;
-        for(int i = 1; i < EnemyCount; ++i)
+        isCreate = true;
+        for (int i = 1; i < EnemyCount; ++i)
         {
-            if(i % 2 == 1)
+            if (i % 2 == 1)
             {
-            LivingEntity b = Instantiate<LivingEntity>(poolObj_Goblin);
-            b.gameObject.SetActive(false);
-            Enemys.Add(b);
+                LivingEntity b = Instantiate<LivingEntity>(poolObj_Goblin);
+
+                b.gameObject.SetActive(false);
+                Enemys.Add(b);
+
             }
-             if(i % 2 == 0)
+            if (i % 2 == 0)
             {
-            LivingEntity c = Instantiate<LivingEntity>(poolObj_Skeleton);
-            c.gameObject.SetActive(false);
-            Enemys.Add(c);
+                LivingEntity c = Instantiate<LivingEntity>(poolObj_Skeleton);
+
+                c.gameObject.SetActive(false);
+                Enemys.Add(c);
             }
-           else
+            else
             {
-            LivingEntity d = Instantiate<LivingEntity>(poolObj_Bat);
-            d.gameObject.SetActive(false);
-            Enemys.Add(d);
+                LivingEntity d = Instantiate<LivingEntity>(poolObj_Bat);
+
+                d.gameObject.SetActive(false);
+                Enemys.Add(d);
             }
 
             //적이 생성되기전 까지는 비활성화 해준다.
@@ -72,7 +76,7 @@ public class ObjectPooling : MonoBehaviour
     }
 
 
-     Vector2 Vec = new Vector3(3f, 2.35f); // 생성 위치
+    Vector2 Vec = new Vector3(3f, 2.35f); // 생성 위치
     public bool isCreate;
 
     //총알 발사
@@ -80,10 +84,10 @@ public class ObjectPooling : MonoBehaviour
     {
         if (isCreate)
         {
-              isCreate = false;
+            isCreate = false;
 
             //활성화한 적이 아직 죽지 않았다면 리턴
-            if(Enemys[curEnemyIndex].gameObject.activeSelf)
+            if (Enemys[curEnemyIndex].gameObject.activeSelf)
             {
                 return;
             }
