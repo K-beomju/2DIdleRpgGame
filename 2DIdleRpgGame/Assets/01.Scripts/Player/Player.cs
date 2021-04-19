@@ -7,24 +7,23 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private static Player instance;
-   public static Player Instance
-   {
-       get
-       {
-           return instance;
-       }
-   }
+    public static Player Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
 
     private void Awake()
-   {
-       if(instance)
-       {
-           Destroy(gameObject);
-           return;
-       }
-       instance = this;
-   }
-
+    {
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
 
 
 
@@ -34,12 +33,22 @@ public class Player : MonoBehaviour
 
     private float Times;
     public float attackRange = 0.5f;
-    public  float attackDamage = 1f;
+    public float attackDamage = 1f;
 
     private bool isAttack;
 
     public AudioClip AttackClip;
     private AudioSource playerAudioSource;
+
+    public float speed = 1f;
+    public GameObject target;
+    void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+    }
+
+
+
 
 
 

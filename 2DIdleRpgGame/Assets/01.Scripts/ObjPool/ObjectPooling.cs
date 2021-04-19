@@ -76,7 +76,7 @@ public class ObjectPooling : MonoBehaviour
     }
 
 
-    Vector2 Vec = new Vector3(3f, 2.35f); // 생성 위치
+    Vector2 Vec = new Vector3(3f, 2.4f); // 생성 위치
     public bool isCreate;
 
     //총알 발사
