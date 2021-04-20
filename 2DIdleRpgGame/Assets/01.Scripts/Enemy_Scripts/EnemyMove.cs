@@ -14,7 +14,9 @@ public class EnemyMove : MonoBehaviour
     }
     void Move()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+    	Vector3 velo = Vector3.zero;
+	transform.position = Vector3.Lerp(transform.position, target, 0.1f);
+
     }
 
 
