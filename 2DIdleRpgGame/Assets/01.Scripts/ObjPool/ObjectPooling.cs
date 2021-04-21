@@ -54,7 +54,6 @@ public class ObjectPooling : MonoBehaviour
             if (i % 2 == 0)
             {
                 LivingEntity c = Instantiate<LivingEntity>(poolObj_Skeleton);
-
                 c.gameObject.SetActive(false);
                 Enemys.Add(c);
             }

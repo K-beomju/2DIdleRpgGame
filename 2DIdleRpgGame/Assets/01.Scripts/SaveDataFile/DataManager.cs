@@ -2,6 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
+using System.Numerics;
+
+[Serializable]
+public class GameData
+{
+  // gold
+
+}
+
+
 
 
 public class DataManager : MonoBehaviour
@@ -61,7 +72,7 @@ public class DataManager : MonoBehaviour
 
         if (File.Exists(filePath))
         {
-            print("roTlqkf");
+           // print("roTlqkf");
             string FromJsonData = File.ReadAllText(filePath);
             _gameData = JsonUtility.FromJson<GameData>(FromJsonData);
         }
@@ -76,11 +87,7 @@ public class DataManager : MonoBehaviour
     {
         string toJsonData = JsonUtility.ToJson(gameData);
         string filePath = Application.persistentDataPath + GameDataFileName;
-
         File.WriteAllText(filePath, toJsonData);
-
-        print("저장완료");
-        print("2는" + gameData.Gold );
     }
 
     private void OnApplicationQuit()
