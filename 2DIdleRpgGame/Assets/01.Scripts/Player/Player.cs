@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 
 
@@ -41,18 +43,21 @@ public class Player : MonoBehaviour
     private AudioSource playerAudioSource;
 
     public float speed = 1f;
-    public GameObject target;
-    void Move()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
-    }
+    //public GameObject target;
+
+    [Space(48)]
+
+    [SerializeField]
+    private GameObject bashSkillAttack;
 
 
 
 
 
-
-
+    // void Move()
+    // {
+    //     transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+    // }
 
     void Start()
     {
@@ -73,6 +78,7 @@ public class Player : MonoBehaviour
             animator.SetBool("isAttack", false);
             playerAudioSource.Stop();
             BackGround.speed = 0.4f;
+
         }
 
     }
@@ -92,17 +98,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    // void OnDrawGizmos()
+    // {
+    //     if (attackPoint == null)
+    //         return;
+    //     Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    // }
 
-
-
-
-    void OnDrawGizmos()
-    {
-        if (attackPoint == null)
-            return;
-
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    }
 
 
 }
