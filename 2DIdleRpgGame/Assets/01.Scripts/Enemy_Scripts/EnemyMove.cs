@@ -6,7 +6,15 @@ using UnityEngine.UI;
 public class EnemyMove : MonoBehaviour
 {
     public float speed = 1f;
-    public Vector3 target = new Vector3(0.2f, 2.47f, 0);
+    public Vector2 target = new Vector3(0.1f, 2.47f);
+    bool isGoal;
+    public Rigidbody2D rigid;
+    float originDistance;
+
+    void Start()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+    }
 
     void FixedUpdate()
     {
@@ -14,10 +22,16 @@ public class EnemyMove : MonoBehaviour
     }
     void Move()
     {
-    	Vector3 velo = Vector3.zero;
-	transform.position = Vector3.Lerp(transform.position, target, 0.1f);
+
+            transform.position = Vector3.Lerp(transform.position, target, 5f * Time.deltaTime);
+
+
+
+
+
 
     }
+
 
 
 

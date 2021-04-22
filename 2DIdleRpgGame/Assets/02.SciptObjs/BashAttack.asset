@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BashAttack
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
   skillName: BashAttack
-  damage: 10
-  sightRange: 3
+  damage: 3
+  range: 1

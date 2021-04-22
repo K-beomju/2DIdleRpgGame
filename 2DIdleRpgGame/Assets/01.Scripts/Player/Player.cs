@@ -34,7 +34,8 @@ public class Player : MonoBehaviour
     public LayerMask enemyLayers;
 
     private float Times;
-    public float attackRange = 0.5f;
+    [SerializeField] float attackRange = 0.5f;
+
     public float attackDamage = 1f;
 
     private bool isAttack;
@@ -42,17 +43,14 @@ public class Player : MonoBehaviour
     public AudioClip AttackClip;
     private AudioSource playerAudioSource;
 
-    public float speed = 1f;
+    [SerializeField] float speed = 1f;
     //public GameObject target;
 
     [Space(48)]
 
     [SerializeField]
-    private GameObject bashSkillAttack;
-
-
-
-
+    public GameObject[] skillObjs;
+    public SkillHub[] Skills;
 
     // void Move()
     // {
@@ -93,17 +91,38 @@ public class Player : MonoBehaviour
             if (enemy != null)
             {
                 target.OnDamage(attackDamage);
+
             }
 
         }
     }
 
-    // void OnDrawGizmos()
-    // {
-    //     if (attackPoint == null)
-    //         return;
-    //     Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    // }
+    public void BashAttack()
+    {
+        GameObject bashAttack = Instantiate(skillObjs[0], transform.position, Quaternion.identity);
+       // bashAttack.name = Skills[0].name; // 클론 미 클론
+        Destroy(bashAttack,2f);
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPoint.position, Skills[0].Range, enemyLayers);
+        foreach (Collider2D enemy in enemiesToDamage)
+        {
+            IDamageable target = enemy.transform.GetComponent<IDamageable>();
+            if (enemy != null)
+            {
+             enemy.GetComponent<EnemyMove>().rigid.AddForce(Vector2.right * Skills[0].damage, ForceMode2D.Impulse);
+                target.OnDamage(Skills[0].damage);
+                // enemy.gameObject.SetActive(false);
+            }
+
+        }
+    }
+
+     void OnDrawGizmos()
+     {
+         if (attackPoint == null)
+             return;
+         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+          Gizmos.DrawWireSphere(attackPoint.position, Skills[0].Range);
+     }
 
 
 

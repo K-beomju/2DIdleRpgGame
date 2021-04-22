@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 6763092074123242167}
   - component: {fileID: 6763092074123242166}
   - component: {fileID: -840334086663477508}
+  - component: {fileID: -7731995392718445013}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Untagged
@@ -377,7 +378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  target: {x: 0.2, y: 2.59, z: 0}
+  target: {x: 0.1, y: 2.59, z: 0}
+  rigid: {fileID: 0}
 --- !u!114 &-840334086663477508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,6 +398,27 @@ MonoBehaviour:
   hudPos: {fileID: 2934765242071967287}
   hp: 10
   offset: {x: 0.07, y: -0.5, z: 0}
+--- !u!50 &-7731995392718445013
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6763092074123242171}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 2
 --- !u!1 &6763092075212586574
 GameObject:
   m_ObjectHideFlags: 0

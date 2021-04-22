@@ -500,6 +500,7 @@ GameObject:
   - component: {fileID: 7192713742314991305}
   - component: {fileID: 1476357373299647518}
   - component: {fileID: 7554560991828660624}
+  - component: {fileID: 5917832178793813764}
   m_Layer: 6
   m_Name: Bat
   m_TagString: Untagged
@@ -614,7 +615,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  target: {x: 0.2, y: 2.63, z: 0}
+  target: {x: 0.1, y: 2.63, z: 0}
+  rigid: {fileID: 0}
 --- !u!114 &7554560991828660624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,3 +635,24 @@ MonoBehaviour:
   hudPos: {fileID: 4046590541083948909}
   hp: 13
   offset: {x: -0.01, y: -0.52, z: 0}
+--- !u!50 &5917832178793813764
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8439593827322578299}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 2

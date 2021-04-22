@@ -37,14 +37,13 @@ public class EnemyHealth : LivingEntity
 
     public override void OnDamage(float damage)
     {
-        GameObject hudText = Instantiate(hudDamageText); // 생성할 텍스트 오브젝트
-        hudText.transform.position = hudPos.position; // 표시될 위치
-        hudText.GetComponent<DamageTextManager>().damage = (int)damage; // 데미지 전달
-        base.OnDamage(damage);
-
-
+        // GameObject hudText = Instantiate(hudDamageText); // 생성할 텍스트 오브젝트
+        // hudText.transform.position = hudPos.position; // 표시될 위치
+        // hudText.GetComponent<DamageTextManager>().damage = (int)damage; // 데미지 전달
+         base.OnDamage(damage);
 
     }
+
 
 
 
