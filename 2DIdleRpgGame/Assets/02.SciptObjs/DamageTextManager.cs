@@ -19,7 +19,7 @@ public class DamageTextManager : MonoBehaviour
 
         text = GetComponent<TextMeshPro>();
         alpha = text.color;
-        text.text = Player.Instance.attackDamage.ToString();
+        text.text = Player.instance.attackDamage.ToString();
         Invoke("DestroyObject", destroyTime);
     }
 

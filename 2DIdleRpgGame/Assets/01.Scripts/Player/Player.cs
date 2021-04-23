@@ -8,26 +8,7 @@ using System;
 
 public class Player : MonoBehaviour
 {
-    private static Player instance;
-    public static Player Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-    private void Awake()
-    {
-        if (instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-    }
-
-
+     public static Player instance;
 
     private Animator animator;
     public Transform attackPoint;
@@ -52,10 +33,6 @@ public class Player : MonoBehaviour
     public GameObject[] skillObjs;
     public SkillHub[] Skills;
 
-    // void Move()
-    // {
-    //     transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
-    // }
 
     void Start()
     {
@@ -100,17 +77,17 @@ public class Player : MonoBehaviour
     public void BashAttack()
     {
         GameObject bashAttack = Instantiate(skillObjs[0], transform.position, Quaternion.identity);
-       // bashAttack.name = Skills[0].name; // 클론 미 클론
-        Destroy(bashAttack,2f);
+        Destroy(bashAttack,0.5f);
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPoint.position, Skills[0].Range, enemyLayers);
         foreach (Collider2D enemy in enemiesToDamage)
         {
             IDamageable target = enemy.transform.GetComponent<IDamageable>();
             if (enemy != null)
             {
-             enemy.GetComponent<EnemyMove>().rigid.AddForce(Vector2.right * Skills[0].damage, ForceMode2D.Impulse);
-                target.OnDamage(Skills[0].damage);
-                // enemy.gameObject.SetActive(false);
+                var a = enemy.GetComponent<EnemyRun>();
+                Debug.Log(a);
+                // target.OnDamage(Skills[0].damage);
+
             }
 
         }

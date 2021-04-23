@@ -7,14 +7,14 @@ public class EnemyHealth : LivingEntity
 {
 
 
-    public GameObject hudDamageText;
-    public Transform hudPos;
 
 
-    [Header("체력 설정란 health 건들지 마셈")]
+
     [SerializeField]
     private float hp;
     public Vector3 offset;
+
+
 
     void Start()
     {
@@ -31,17 +31,12 @@ public class EnemyHealth : LivingEntity
         slider.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset);
             slider.value = health;
 
-
     }
 
 
     public override void OnDamage(float damage)
     {
-        // GameObject hudText = Instantiate(hudDamageText); // 생성할 텍스트 오브젝트
-        // hudText.transform.position = hudPos.position; // 표시될 위치
-        // hudText.GetComponent<DamageTextManager>().damage = (int)damage; // 데미지 전달
          base.OnDamage(damage);
-
     }
 
 

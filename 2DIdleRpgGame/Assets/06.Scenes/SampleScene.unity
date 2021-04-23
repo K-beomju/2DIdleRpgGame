@@ -913,12 +913,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f36d5bb03334e1458201afd712d6996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolObj_Goblin: {fileID: -106003446094900089, guid: a6f2034bbef3ac54b81417d5fc8395c3, type: 3}
-  poolObj_Skeleton: {fileID: 7554560991828660624, guid: e3950bd44153ad34c99da0c97eada2ce, type: 3}
-  poolObj_Bat: {fileID: -840334086663477508, guid: 43366e5af2f8df64a845722fef6e9157, type: 3}
-  Enemys: []
-  curEnemyIndex: 0
-  isCreate: 0
+  enemyPrefabs: {fileID: 3539518527182708501, guid: a6f2034bbef3ac54b81417d5fc8395c3, type: 3}
+  monsterCount: 3
 --- !u!4 &861381077
 Transform:
   m_ObjectHideFlags: 0
@@ -1727,9 +1723,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1767754936}
   - component: {fileID: 1767754935}
-  - component: {fileID: 1767754934}
   - component: {fileID: 1767754937}
   - component: {fileID: 1767754938}
+  - component: {fileID: 1767754934}
   m_Layer: 3
   m_Name: player
   m_TagString: Player

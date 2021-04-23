@@ -293,9 +293,9 @@ GameObject:
   - component: {fileID: 3539518527182708496}
   - component: {fileID: 3539518527182708497}
   - component: {fileID: 3539518527182708502}
-  - component: {fileID: 3539518527182708500}
   - component: {fileID: -106003446094900089}
   - component: {fileID: -7033569759734344593}
+  - component: {fileID: 726014647459526022}
   m_Layer: 6
   m_Name: Goblin
   m_TagString: Untagged
@@ -396,21 +396,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.44, y: 0.51}
   m_EdgeRadius: 0
---- !u!114 &3539518527182708500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3539518527182708501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eedccc2031929ee4492d4554de69cfe4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  target: {x: 0.162, y: 2.46, z: 0}
-  rigid: {fileID: 0}
 --- !u!114 &-106003446094900089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,10 +410,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 4
   slider: {fileID: 1606318980266954900}
-  hudDamageText: {fileID: 2360158605109903415, guid: d6c62eb3d256d1842b4f8b5e4024d1bf, type: 3}
-  hudPos: {fileID: 0}
   hp: 10
-  offset: {x: 0.02, y: -0.33, z: 0}
+  offset: {x: 0.02, y: -0.34, z: 0}
 --- !u!50 &-7033569759734344593
 Rigidbody2D:
   serializedVersion: 4
@@ -450,6 +433,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 2
+--- !u!95 &726014647459526022
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539518527182708501}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3f6ac0d6fc5f1db418781ada906143c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7847558573124631246
 GameObject:
   m_ObjectHideFlags: 0
