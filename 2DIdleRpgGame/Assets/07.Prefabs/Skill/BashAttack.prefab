@@ -115,6 +115,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e269a5fbe800df041b16613def343a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: Bash
-  damage: 5
-  m_range: 3
+  damage: 10
+  range: 12
