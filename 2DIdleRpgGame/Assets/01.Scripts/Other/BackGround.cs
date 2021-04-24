@@ -5,12 +5,16 @@ using UnityEngine;
 public class BackGround : MonoBehaviour
 {
     private new Renderer renderer;
-    public static float speed = 1f;
+    public float speed = 0.5f;
     public float offset;
 
     void Start()
     {
         renderer = GetComponent<Renderer>();
+    }
+
+    public void SetSpeed(float speed){
+        this.speed = speed;
     }
 
     void Update()

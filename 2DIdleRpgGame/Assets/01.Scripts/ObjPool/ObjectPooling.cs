@@ -2,58 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPooling : MonoBehaviour
+public class ObjectPooling<T> where T : MonoBehaviour
 {
+    private Queue<T> m_queue;
+    private GameObject prefab;
+    private Transform parent;
 
-
-    public static ObjectPooling instance;
-
-    public GameObject enemyPrefabs = null;
-
-    public Queue<GameObject> m_queue = new Queue<GameObject>();
-
-    [SerializeField] int monsterCount;
-
-    float spawnTime;
-
-    Vector2 Vec = new Vector3(5f, 2.463f);
-
-    void Start()
+    //기본 5개의 값을 가지는 오브젝트 풀을 만들어낸다.
+    public ObjectPooling(GameObject prefab, Transform parent, int count = 5)
     {
-        instance = this;
-
-        for(int i = 0; i< monsterCount; i++)
+        this.prefab = prefab;
+        this.parent = parent;
+        m_queue = new Queue<T>();
+        for(int i = 0; i < count; i++)
         {
-            GameObject t_object = Instantiate(enemyPrefabs, Vec, Quaternion.identity);
-            m_queue.Enqueue(t_object);
-            t_object.SetActive(false);
+            GameObject obj = GameObject.Instantiate(prefab, parent);
+            T t = obj.GetComponent<T>();
+            obj.SetActive(false);
+            m_queue.Enqueue(t);
         }
-
     }
 
-    public void InsertQueue(GameObject p_object) //반납
+    public T GetOrCreate()
     {
-        m_queue.Enqueue(p_object);
-        p_object.SetActive(false);
+        T t = m_queue.Peek();
+        if (t.gameObject.activeSelf) //맨처음에 있는 원소조차 활성화되어있다면 큐가 전부 가용중이라는 뜻
+        {
+            GameObject temp = GameObject.Instantiate(prefab, parent);
+            t = temp.GetComponent<T>();
+            m_queue.Enqueue(t);
+        }
+        else
+        {
+            t = m_queue.Dequeue();
+            t.gameObject.SetActive(true);
+        m_queue.Enqueue(t); //빼내었거나 새로 생성한 애를 맨 마지막에 넣는다.
+        }
+        return t;
     }
-
-    public GameObject GetQueue()
-    {
-        GameObject t_object = m_queue.Dequeue();
-        t_object.SetActive(true);
-        return t_object;
-    }
-
-    void  Update()
-    {
-        SpawnEnemy();
-    }
-
-    public void SpawnEnemy()
-    {
-
-    }
-
 }
 
 

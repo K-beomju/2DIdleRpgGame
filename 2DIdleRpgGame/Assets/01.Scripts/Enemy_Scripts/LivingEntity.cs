@@ -4,42 +4,26 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
-public class LivingEntity : MonoBehaviour, IDamageable
+public abstract class LivingEntity : MonoBehaviour, IDamageable
 {
     protected float maxHealth; //최대 체력
     public float health; // 체력
-    public Slider slider;
-
-
-    protected void OnEnable() // 리셋
-    {
-        // dead = false;
-        health = maxHealth;
-    }
+    protected bool isDie = false;
 
     protected void SetEntityDefault(float hp) // 최대 Hp 를 설정함
     {
-
-        maxHealth = hp;
-        OnEnable();
+        //maxHealth = hp;  //사용할 필요가 없어보인다.
+        //OnEnable(); //이건 호출하라고 만들어논건 아닌데
     }
 
-
-    public virtual void OnDamage(float damage)
+    public virtual void OnDamage(float damage, bool isPushAttack = false)
     {
         health -= damage;
         if (health <= 0)
         {
-
-            gameObject.SetActive(false);
-
+            Die();
         }
     }
 
-
-
-
-
-
-
+    protected abstract void Die();
 }
