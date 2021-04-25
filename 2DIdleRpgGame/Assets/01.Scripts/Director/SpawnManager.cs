@@ -7,23 +7,42 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    private static SpawnManager instance;
+    public static SpawnManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
     private ObjectPooling<EnemyHealth>[] enemyPool;
     [SerializeField] GameObject[] enemyGroup;
-    private static SpawnManager instance;
-    private float spawnTime;
+    public bool isSpawn ;
+    public int curEnemyIndex = 0;
+    public GameObject spawnPosition;
+
 
     void Awake()
     {
-        enemyPool = new ObjectPooling<EnemyHealth>[enemyGroup.Length]; //
+        if (instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+
+
+        enemyPool = new ObjectPooling<EnemyHealth>[enemyGroup.Length];
         for (int i = 0; i < enemyGroup.Length; i++)
         {
-            enemyPool[i] = new ObjectPooling<EnemyHealth>(enemyGroup[i], this.transform, 1); //각 이펙트별로 3개씩만 생성
+            enemyPool[i] = new ObjectPooling<EnemyHealth>(enemyGroup[i], this.transform, 1);
         }
+
     }
 
     void Start()
     {
-        //  SpawnEnemy();
+        isSpawn = true;
     }
 
     void Update()
@@ -33,17 +52,23 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-
-        for (int i = 0; i < enemyGroup.Length; i++)
+        if (isSpawn)
         {
-            if(spawnTime < Time.time)
+            isSpawn = false;
+            EnemyHealth enemy = enemyPool[curEnemyIndex].GetOrCreate();
+            enemyGroup[curEnemyIndex].transform.position = spawnPosition.transform.position;
+            if (curEnemyIndex >= enemyGroup.Length - 1)
             {
-            EnemyHealth enemy = enemyPool[i].GetOrCreate();
-            spawnTime = Time.time + 3f;
+                curEnemyIndex = 0;
             }
-        }
-    }
+            else
+            {
+                curEnemyIndex++;
+            }
 
+        }
+
+    }
 
 
 

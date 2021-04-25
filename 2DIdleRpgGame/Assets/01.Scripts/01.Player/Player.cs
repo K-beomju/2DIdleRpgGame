@@ -73,11 +73,11 @@ public class Player : MonoBehaviour
     {
         playerAudioSource.Play();
         GameManager.CamShake(0.5f, 0.2f); //소소한 카메라 이펙트
-        Collider2D[] hitEnemis = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        Collider2D[] hitEnemis = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers); // 공격 사거리 , 레이어
         foreach (Collider2D enemy in hitEnemis)
         {
             IDamageable target = enemy.transform.GetComponent<IDamageable>();
-            if (target != null)  //enemy가 null인지 체크하는게 아니라 target이 널인지 체크해야지
+            if (target != null)
             {
                 target.OnDamage(attackDamage);
             }

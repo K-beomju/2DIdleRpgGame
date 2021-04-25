@@ -10,11 +10,14 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
     public float health; // 체력
     protected bool isDie = false;
 
+
+
     public virtual void OnDamage(float damage, bool isPushAttack = false)
     {
         health -= damage;
         if (health <= 0)
         {
+
             Die();
         }
     }

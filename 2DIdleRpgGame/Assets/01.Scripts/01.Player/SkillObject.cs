@@ -21,8 +21,8 @@ public class SkillObject : MonoBehaviour
         transform.rotation = rot;
     }
 
-    public void SetDeactive()
-    {
-        gameObject.SetActive(false);
-    }
+     public void SetDeactive()
+     {
+         gameObject.SetActive(false);
+     }
 }
