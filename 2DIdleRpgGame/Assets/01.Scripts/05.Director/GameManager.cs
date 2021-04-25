@@ -11,10 +11,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private BackGround back;
-    //싱글톤을 활용해서 인스턴스 제어한다.
-    private static GameManager instance;
 
     private ObjectPooling<EnemyHPBar> barPool;
+    public static GameManager instance;
+
+
+
+    public int attackDamage = 1;
+
+
+
+
 
 
 

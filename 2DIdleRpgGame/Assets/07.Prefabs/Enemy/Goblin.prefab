@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: -106003446094900089}
   - component: {fileID: -7033569759734344593}
   - component: {fileID: 726014647459526022}
+  - component: {fileID: 870478977074087707}
   m_Layer: 6
   m_Name: Goblin
   m_TagString: Untagged
@@ -111,10 +112,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3539518527182708501}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.48, y: 3.12, z: 0}
+  m_LocalPosition: {x: 4.48, y: 3.27, z: 0}
   m_LocalScale: {x: 1.9, y: 1.9, z: 1}
   m_Children:
   - {fileID: 3539518525717577915}
+  - {fileID: 5573823970747493402}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -193,7 +195,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.42}
+  m_Size: {x: 0.32, y: 0.3340342}
   m_EdgeRadius: 0
 --- !u!114 &-106003446094900089
 MonoBehaviour:
@@ -208,7 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 360
-  offset: {x: 0.02, y: -0.34, z: 0}
+  offset: {x: 0.02, y: -0.4, z: 0}
 --- !u!50 &-7033569759734344593
 Rigidbody2D:
   serializedVersion: 4
@@ -249,3 +251,51 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &870478977074087707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539518527182708501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb7cad1fb16ee8449ce591091cb11f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 5573823970747493402}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  attackRange: 0.31
+  attackDamage: 1
+--- !u!1 &7297862343731357051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5573823970747493402}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5573823970747493402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7297862343731357051}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.177, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3539518527182708496}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

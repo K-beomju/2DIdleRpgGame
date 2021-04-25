@@ -56,7 +56,8 @@ public class SpawnManager : MonoBehaviour
         {
             isSpawn = false;
             EnemyHealth enemy = enemyPool[curEnemyIndex].GetOrCreate();
-            enemyGroup[curEnemyIndex].transform.position = spawnPosition.transform.position;
+
+            enemy.transform.position = spawnPosition.transform.position;
             if (curEnemyIndex >= enemyGroup.Length - 1)
             {
                 curEnemyIndex = 0;

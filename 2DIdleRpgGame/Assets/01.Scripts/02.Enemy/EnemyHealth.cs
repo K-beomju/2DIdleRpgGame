@@ -7,11 +7,13 @@ public class EnemyHealth : LivingEntity
 {
 
     public Vector3 offset; // 위치 보정
-    private Rigidbody2D rigid;
+    protected Rigidbody2D rigid;
     private EnemyHPBar hpBar; // EnemyHPbar 가져옴
 
 
     private bool isMoving = true; // 윰직일 때
+
+    Transform player;
 
     private void Awake()
     {
@@ -26,6 +28,8 @@ public class EnemyHealth : LivingEntity
         maxHealth = health; // 체력
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset); // 슬라이더 위치
         hpBar.Reset(pos, 1); // 슬라이더 벨루를 1로
+
+         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
@@ -43,12 +47,15 @@ public class EnemyHealth : LivingEntity
           }
 
 
+
+
     }
 
     public override void OnDamage(float damage, bool isPushAttack = false)
     {
         // if (isDie) return;
         base.OnDamage(damage, isPushAttack);
+
 
         if (isPushAttack)
         {
@@ -61,23 +68,12 @@ public class EnemyHealth : LivingEntity
     protected override void Die()
     {
 
-      SpawnManager.Instance.isSpawn = true; // 죽을때 스폰 매니저에서 스폰을 트루
+       SpawnManager.Instance.isSpawn = true; // 죽을때 스폰 매니저에서 스폰을 트루
         isDie = true; // isDie true
         hpBar.gameObject.SetActive(false);
         gameObject.SetActive(false); // 적 비활성화
-
-
-
-
         health = maxHealth;
-       // hpBar.transform.position = SpawnManager.Instance.spawnPosition.transform.position;
-        transform.position = SpawnManager.Instance.spawnPosition.transform.position;
-    }
 
-
-    public void SetPositionData(Vector3 position)
-    {
-        transform.position = position;
     }
 
 
