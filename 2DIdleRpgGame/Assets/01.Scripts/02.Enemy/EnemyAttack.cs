@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    private Animator animator; // 애니메이터
-    public Transform attackPoint; // 공격 포지션
-    public LayerMask playerLayer; // 플레이어 레이어
+    private Animator animator; 
+    public Transform attackPoint; 
+    public LayerMask playerLayer;
 
-    [SerializeField] [Range (0,2)] float attackRange = 0.5f; // 공격 사거리
-    [SerializeField] float attackDamage = 1f; // 공격 데미지
-    private bool isAttack; // 공격 유무
+    [SerializeField] [Range (0,2)] float attackRange = 0.5f;
+    [SerializeField] float attackDamage = 1f; 
+    [SerializeField] float moveSpeed = 1f;
 
-    public static float moveSpeed = 0f;
+
+    private bool isAttack; 
+
 
     void Awake()
     {
@@ -23,15 +25,18 @@ public class EnemyAttack : MonoBehaviour
 
     void Update()
     {
-         Debug.DrawRay(transform.position, transform.right * -0.5f, Color.blue);
+        // Debug.DrawRay(transform.position, transform.right * -0.3f, Color.blue);
         transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
-         if (moveSpeed == 0)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, -0.4f, playerLayer);
+        if (hit)
         {
             animator.SetBool("isAttack", true);
+            moveSpeed = 0;
         }
         else
         {
             animator.SetBool("isAttack", false);
+            moveSpeed = 1;
         }
     }
 

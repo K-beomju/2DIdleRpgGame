@@ -8,10 +8,6 @@ public class ObjectPooling<T> where T : MonoBehaviour
     private GameObject prefab;
     private Transform parent;
 
-
-
-
-
     //기본 5개의 값을 가지는 오브젝트 풀을 만들어낸다.
     public ObjectPooling(GameObject prefab, Transform parent, int count = 5) // 프리팹,기본 5
     {

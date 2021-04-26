@@ -6,7 +6,7 @@ public class BackGround : MonoBehaviour
 {
     private new Renderer renderer;
 
-    public float speed = 0.5f;
+    public float backSpeed = 0.5f;
     public float offset;
 
     void Start()
@@ -15,12 +15,12 @@ public class BackGround : MonoBehaviour
     }
 
     public void SetSpeed(float speed){
-        this.speed = speed;
+        this.backSpeed = speed;
     }
 
     void Update()
     {
-        offset += Time.deltaTime * speed;
+        offset += Time.deltaTime * backSpeed;
         renderer.material.SetTextureOffset("_MainTex", new Vector2(offset,0));
     }
 

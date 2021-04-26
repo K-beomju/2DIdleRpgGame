@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IDamageable  {
-    void OnDamage(float damage, bool isPushAttack = false);
+    void OnDamage(float damage);
 
 }

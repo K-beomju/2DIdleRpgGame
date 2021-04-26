@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     public RectTransform canvas;
     public GameObject hpBarPrefab;
     public CameraEffect camEffect;
 
 
-    [SerializeField]
-    private BackGround back;
 
+    [SerializeField] BackGround back;
     private ObjectPooling<EnemyHPBar> barPool;
-    public static GameManager instance;
-
-
 
     public int attackDamage = 1;
 

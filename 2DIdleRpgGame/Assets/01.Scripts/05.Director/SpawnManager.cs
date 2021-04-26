@@ -15,6 +15,8 @@ public class SpawnManager : MonoBehaviour
             return instance;
         }
     }
+
+
     private ObjectPooling<EnemyHealth>[] enemyPool;
     [SerializeField] GameObject[] enemyGroup;
     public bool isSpawn ;
@@ -56,7 +58,6 @@ public class SpawnManager : MonoBehaviour
         {
             isSpawn = false;
             EnemyHealth enemy = enemyPool[curEnemyIndex].GetOrCreate();
-
             enemy.transform.position = spawnPosition.transform.position;
             if (curEnemyIndex >= enemyGroup.Length - 1)
             {
