@@ -7,33 +7,15 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    private static SpawnManager instance;
-    public static SpawnManager Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
-
     private ObjectPooling<EnemyHealth>[] enemyPool;
     [SerializeField] GameObject[] enemyGroup;
-    public bool isSpawn ;
+    public static bool isSpawn ;
     public int curEnemyIndex = 0;
     public GameObject spawnPosition;
 
 
     void Awake()
     {
-        if (instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-
-
         enemyPool = new ObjectPooling<EnemyHealth>[enemyGroup.Length];
         for (int i = 0; i < enemyGroup.Length; i++)
         {

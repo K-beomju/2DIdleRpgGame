@@ -18,5 +18,6 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
             Die();
         }
     }
+
     protected abstract void Die();
 }

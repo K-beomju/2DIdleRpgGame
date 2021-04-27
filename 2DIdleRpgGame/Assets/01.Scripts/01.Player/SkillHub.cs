@@ -13,6 +13,10 @@ public class SkillHub : ScriptableObject
     private float range;
     public float Range { get { return range; } }
 
+     [SerializeField]
+    private float attackCount;
+    public float AttackCount { get { return attackCount; } }
+
 }
 
 

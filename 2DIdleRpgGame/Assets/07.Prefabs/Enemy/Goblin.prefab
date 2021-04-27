@@ -268,7 +268,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   attackRange: 0.5
-  attackDamage: 382
+  attackDamage: 20
   moveSpeed: 1
 --- !u!1 &7297862343731357051
 GameObject:

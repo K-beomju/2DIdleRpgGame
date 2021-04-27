@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
+
 
 public class EnemyHealth : LivingEntity,ICastable
 {
@@ -12,7 +14,7 @@ public class EnemyHealth : LivingEntity,ICastable
 
 
     private bool isMoving = true; // 윰직일 때
-   // Transform player;
+
 
 
     private void Awake()
@@ -24,10 +26,11 @@ public class EnemyHealth : LivingEntity,ICastable
     {
          hpBar = GameManager.GetEnemyHPBar();
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
-      //   player = GameObject.FindGameObjectWithTag("Player").transform;
         hpBar.Reset(pos, 1);
         maxHealth = health;
     }
+
+
 
     void Update()
     {
@@ -43,6 +46,8 @@ public class EnemyHealth : LivingEntity,ICastable
         }
 
     }
+
+
     public override void OnDamage(float damage)
     {
         base.OnDamage(damage);
@@ -64,7 +69,7 @@ public class EnemyHealth : LivingEntity,ICastable
 
     protected override void Die()
     {
-       SpawnManager.Instance.isSpawn = true; // 죽을때 스폰 매니저에서 스폰을 트루
+       SpawnManager.isSpawn = true; // 죽을때 스폰 매니저에서 스폰을 트루
         hpBar.gameObject.SetActive(false);
         gameObject.SetActive(false); // 적 비활성화
         health = maxHealth;

@@ -123,36 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &36523823
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 36523824}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &36523824
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 36523823}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.33, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &50094423
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c0b3d776248f345b2b657158bae672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backSpeed: 0.5
   offset: 0
 --- !u!212 &114646695
 SpriteRenderer:
@@ -1741,7 +1710,12 @@ MonoBehaviour:
   hpBarPrefab: {fileID: 654059427734974347, guid: 5c9b9c2fb77f30744b63bd0315fd9a89, type: 3}
   camEffect: {fileID: 1301124984}
   back: {fileID: 114646694}
-  attackDamage: 30
+  attackDamage: 100
+  attackRange: 0.4
+  enemyAttackRange: 0.5
+  enemyAttackDamage: 20
+  enemyMoveSpeed: 1
+  backSpeed: 0.5
 --- !u!1 &1348399418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2557,7 +2531,6 @@ MonoBehaviour:
   hpText: {fileID: 625703385}
   slider: {fileID: 526807008}
   AttackClip: {fileID: 8300000, guid: 1d47d31c769501448b96792a43878af5, type: 3}
-  attackRange: 0.4
   skillObjs:
   - {fileID: 4988491769944171977, guid: 85e886326b0899d4d91da07f4f54cdf6, type: 3}
   Skills:

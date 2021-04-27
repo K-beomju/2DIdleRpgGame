@@ -5,8 +5,6 @@ using UnityEngine;
 public class BackGround : MonoBehaviour
 {
     private new Renderer renderer;
-
-    public float backSpeed = 0.5f;
     public float offset;
 
     void Start()
@@ -15,12 +13,12 @@ public class BackGround : MonoBehaviour
     }
 
     public void SetSpeed(float speed){
-        this.backSpeed = speed;
+        GameManager.instance.backSpeed = speed;
     }
 
     void Update()
     {
-        offset += Time.deltaTime * backSpeed;
+        offset += Time.deltaTime * GameManager.instance.backSpeed;
         renderer.material.SetTextureOffset("_MainTex", new Vector2(offset,0));
     }
 
