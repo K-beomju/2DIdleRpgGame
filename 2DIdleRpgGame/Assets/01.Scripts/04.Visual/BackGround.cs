@@ -14,6 +14,7 @@ public class BackGround : MonoBehaviour
 
     public void SetSpeed(float speed){
         GameManager.instance.backSpeed = speed;
+      speed = GameManager.instance.backSpeed;
     }
 
     void Update()
@@ -21,6 +22,8 @@ public class BackGround : MonoBehaviour
         offset += Time.deltaTime * GameManager.instance.backSpeed;
         renderer.material.SetTextureOffset("_MainTex", new Vector2(offset,0));
     }
+
+
 
 
 }

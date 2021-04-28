@@ -22,6 +22,7 @@ public class EnemyAttack : MonoBehaviour, IAttackable
     {
         transform.Translate(Vector2.left * GameManager.instance.enemyMoveSpeed * Time.deltaTime);
         Attackstatus();
+
     }
 
 
@@ -42,7 +43,7 @@ public class EnemyAttack : MonoBehaviour, IAttackable
 
 
 
-    void Attack()
+   public void Attack()
     {
         Collider2D[] hitPlayer = Physics2D.OverlapCircleAll(attackPoint.position, GameManager.instance.enemyAttackRange, playerLayer); // 공격 사거리 , 레이어
         foreach (Collider2D player in hitPlayer)

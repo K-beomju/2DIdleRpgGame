@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 360
   offset: {x: 0.02, y: -0.4, z: 0}
+  hitEffect: {fileID: 1518504699892740770, guid: 9fd49bb9710d1dc4ea790b0c370ec8ed, type: 3}
 --- !u!114 &870478977074087707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,9 +268,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  attackRange: 0.5
-  attackDamage: 20
-  moveSpeed: 1
 --- !u!1 &7297862343731357051
 GameObject:
   m_ObjectHideFlags: 0

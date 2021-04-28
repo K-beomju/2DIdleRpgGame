@@ -5,4 +5,6 @@ using UnityEngine;
 public interface IAttackable
 {
    void Attackstatus();
+
+   void Attack();
 }

@@ -5,21 +5,25 @@ using UnityEngine.UI;
 using UnityEditor;
 
 
-public class EnemyHealth : LivingEntity,ICastable
+public class EnemyHealth : LivingEntity
 {
 
     public Vector3 offset; // 위치 보정
     protected Rigidbody2D rigid;
     private EnemyHPBar hpBar; // EnemyHPbar 가져옴
+    private EnemyHealth hitEffect;
 
 
     private bool isMoving = true; // 윰직일 때
 
 
 
+
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+
     }
 
     void Start()
@@ -50,18 +54,18 @@ public class EnemyHealth : LivingEntity,ICastable
 
     public override void OnDamage(float damage)
     {
+
+
+        SkillObject hitEffect = GameManager.instance.hitPool.GetOrCreate();
+        hitEffect.SetPositionData(transform.position, Quaternion.identity);
+
+
         base.OnDamage(damage);
     }
-    public void OnSkill(int skillCount)
-    {
-        switch(skillCount)
-        {
-            case 0:
-        rigid.AddForce(new Vector2(100, 200));
-            break;
-        }
 
-    }
+
+
+
 
 
 
