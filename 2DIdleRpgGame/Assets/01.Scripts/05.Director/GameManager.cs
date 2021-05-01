@@ -34,6 +34,19 @@ public class GameManager : MonoBehaviour
     public float backSpeed;
 
 
+    public Text tlqkf;
+
+
+
+
+
+
+
+
+
+
+
+
     private ObjectPooling<EnemyHPBar> barPool;
     public ObjectPooling<SkillObject> hitPool;
     public ObjectPooling<DamageText> dmgPool;

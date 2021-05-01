@@ -31,32 +31,34 @@ public class EnemyHealth : LivingEntity
         sr = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
     }
 
     void Start()
     {
+        maxHealth = health;
          hpBar = GameManager.GetEnemyHPBar();
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
         hpBar.Reset(pos, 1);
-        maxHealth = health;
+
     }
 
 
 
     void Update()
     {
+        if(this.gameObject.activeSelf)
+        {
+              hpBar.gameObject.SetActive(true);
+              hpBar.SetValue(health / maxHealth);
+        FrontPlr();
+        }
         if (isMoving)
         {
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
            hpBar.SetPosition(pos);
 
         }
-        if(this.gameObject.activeSelf)
-        {
-              hpBar.gameObject.SetActive(true);
-              hpBar.SetValue(health / maxHealth);
-        }
-        FrontPlr();
 
     }
 
@@ -78,28 +80,27 @@ public class EnemyHealth : LivingEntity
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     public override void OnDamage(float damage)
     {
 
-        DamageText dmgText = GameManager.instance.dmgPool.GetOrCreate();
-        dmgText.transform.position = new Vector2(Random.Range( -0.1f, 0.1f), transform.position.y);
+        dmgText = GameManager.instance.dmgPool.GetOrCreate();
+         dmgText.transform.position = new Vector2(Random.Range( -0.1f, 0.1f), transform.position.y);
         DamageText.damage = damage;
 
         SkillObject hitEffect = GameManager.instance.hitPool.GetOrCreate();
         hitEffect.SetPositionData(transform.position,Quaternion.Euler(0, 0, Random.Range(0 ,360f)));
+         StartCoroutine(cAlpha());
         base.OnDamage(damage);
-        StartCoroutine(cAlpha());
+    }
+
+
+    protected override void Die()
+    {
+
+        hpBar.gameObject.SetActive(false);
+       SpawnManager.isSpawn = true; // 죽을때 스폰 매니저에서 스폰을 트루
+        gameObject.SetActive(false); // 적 비활성화
+        health = maxHealth;
     }
 
     private IEnumerator cAlpha()
@@ -108,22 +109,5 @@ public class EnemyHealth : LivingEntity
         yield return new WaitForSeconds(0.3f);
         sr.color = new Color(1,1,1,1);
     }
-
-
-
-
-
-
-
-
-
-    protected override void Die()
-    {
-       SpawnManager.isSpawn = true; // 죽을때 스폰 매니저에서 스폰을 트루
-        hpBar.gameObject.SetActive(false);
-        gameObject.SetActive(false); // 적 비활성화
-        health = maxHealth;
-    }
-
 
 }

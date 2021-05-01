@@ -9,6 +9,7 @@ public class EnemyHPBar : MonoBehaviour
     private Slider slider;
     private RectTransform rTr;
 
+
     private Coroutine co = null;
     private void Awake()
     {
@@ -18,8 +19,12 @@ public class EnemyHPBar : MonoBehaviour
 
     public void SetValue(float value)
     {
-        if (co != null) StopCoroutine(co);
-        co = StartCoroutine(DamageReduce(value));
+         if (co != null)
+         {
+         StopCoroutine(co);
+         }
+         co = StartCoroutine(DamageReduce(value));
+
     }
 
      private void OnDisable()
@@ -35,7 +40,9 @@ public class EnemyHPBar : MonoBehaviour
         {
             slider.value = value; //Mathf.Lerp(slider.value, value,  reduceFactor);
             if (Mathf.Abs(slider.value - value) < 0.1f)
+            {
                 yield break; // 종료
+            }
             yield return null; // null 반환
         }
     }
