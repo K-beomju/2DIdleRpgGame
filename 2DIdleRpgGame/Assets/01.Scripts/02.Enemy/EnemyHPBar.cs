@@ -33,7 +33,7 @@ public class EnemyHPBar : MonoBehaviour
     {
         while (true)
         {
-            slider.value = Mathf.Lerp(slider.value, value, Time.deltaTime * reduceFactor);
+            slider.value = value; //Mathf.Lerp(slider.value, value,  reduceFactor);
             if (Mathf.Abs(slider.value - value) < 0.1f)
                 yield break; // 종료
             yield return null; // null 반환

@@ -6,15 +6,14 @@ public class BackGround : MonoBehaviour
 {
     private new Renderer renderer;
     public float offset;
-
     void Start()
     {
         renderer = GetComponent<Renderer>();
     }
 
     public void SetSpeed(float speed){
-        GameManager.instance.backSpeed = speed;
       speed = GameManager.instance.backSpeed;
+        GameManager.instance.backSpeed = speed;
     }
 
     void Update()

@@ -11,38 +11,45 @@ public class GameManager : MonoBehaviour
 
     public GameObject hpBarPrefab; //     private ObjectPooling<EnemyHPBar> barPool;
     public GameObject hitEffect; //  public ObjectPooling<SkillObject> hitPool;
+    public GameObject textPrefab;
 
-
+    [Space(45)]
     public CameraEffect camEffect;
-    public BackGround back;
+    [SerializeField]
+    private BackGround back;
+    [Space(20)]
 
-    [Header ("Player")]
+    [Header("Player")]
     public float attackDamage; // 플레이어 공격력, 공격범위
     public float attackRange;
     public float attackSpeed;
     public float attackDelay;
 
-    [Header ("Enemy")]
+    [Header("Enemy")]
     public float enemyAttackRange = 0.5f;
     public float enemyAttackDamage = 1f;
     public float enemyMoveSpeed = 1f;
 
-    [Header ("BackGround")]
+    [Header("BackGround")]
     public float backSpeed;
 
 
     private ObjectPooling<EnemyHPBar> barPool;
     public ObjectPooling<SkillObject> hitPool;
+    public ObjectPooling<DamageText> dmgPool;
+
 
     void Awake()
     {
         instance = this;
         barPool = new ObjectPooling<EnemyHPBar>(hpBarPrefab, canvas, 3); //hp바는 3개면 충분
         hitPool = new ObjectPooling<SkillObject>(hitEffect, this.transform, 10);
+        dmgPool = new ObjectPooling<DamageText>(textPrefab, this.transform, 5);
 
     }
 
-    public static void SetBackgroundSpeed(float speed){
+    public static void SetBackgroundSpeed(float speed)
+    {
         instance.back.SetSpeed(speed); //객체지향에서 개체내의 데이터를 다룬곳에서 다루면 코드의 복잡도를 증가시킨다.
     }
 

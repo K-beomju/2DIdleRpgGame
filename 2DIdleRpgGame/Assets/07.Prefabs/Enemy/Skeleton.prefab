@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2957109530284241987}
   - component: {fileID: -7731995392718445013}
   - component: {fileID: -840334086663477508}
-  - component: {fileID: -2841463704660615459}
   m_Layer: 6
   m_Name: Skeleton
   m_TagString: Untagged
@@ -169,25 +168,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 360
   offset: {x: 0.07, y: -0.5, z: 0}
---- !u!114 &-2841463704660615459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6763092074123242171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb7cad1fb16ee8449ce591091cb11f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPoint: {fileID: 1383348419419135340}
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
-  attackRange: 0.5
-  attackDamage: 20
-  moveSpeed: 1
+    m_Bits: 0
 --- !u!1 &6763092075212586574
 GameObject:
   m_ObjectHideFlags: 0

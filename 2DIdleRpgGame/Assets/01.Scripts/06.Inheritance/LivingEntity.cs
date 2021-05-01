@@ -13,6 +13,7 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
     {
         health -= damage;
 
+
         if (health <= 0)
         {
             Die();

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<font>
+  <info face="Noto Sans CJK KR Bold" size="-36" bold="0" italic="0" charset="" unicode="1" stretchH="100" smooth="1" aa="1" padding="0,0,0,0" spacing="1,1" outline="1"/>
+  <common lineHeight="53" base="41" scaleW="128" scaleH="128" pages="1" packed="0" alphaChnl="1" redChnl="0" greenChnl="0" blueChnl="0"/>
+  <pages>
+    <page id="0" file="level.png" />
+  </pages>
+  <chars count="10">
+    <char id="48" x="90" y="0" width="20" height="29" xoffset="1" yoffset="13" xadvance="21" page="0" chnl="15" />
+    <char id="49" x="84" y="30" width="18" height="29" xoffset="2" yoffset="13" xadvance="21" page="0" chnl="15" />
+    <char id="50" x="24" y="0" width="21" height="29" xoffset="0" yoffset="13" xadvance="21" page="0" chnl="15" />
+    <char id="51" x="0" y="30" width="20" height="29" xoffset="0" yoffset="13" xadvance="21" page="0" chnl="15" />
+    <char id="52" x="0" y="0" width="23" height="29" xoffset="-1" yoffset="13" xadvance="21" page="0" chnl="15" />
+    <char id="53" x="46" y="0" width="21" height="29" xoffset="-1" yoffset="13" xadvance="21" page="0" chnl="15" />
+    <char id="54" x="21" y="30" width="20" height="29" xoffset="1" yoffset="13" xadvance="21" page="0" chnl="15" />
+    <char id="55" x="42" y="30" width="20" height="29" xoffset="1" yoffset="13" xadvance="21" page="0" chnl="15" />
+    <char id="56" x="68" y="0" width="21" height="29" xoffset="0" yoffset="13" xadvance="21" page="0" chnl="15" />
+    <char id="57" x="63" y="30" width="20" height="29" xoffset="0" yoffset="13" xadvance="21" page="0" chnl="15" />
+  </chars>
+</font>

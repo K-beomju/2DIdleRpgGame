@@ -30,13 +30,13 @@ public class ObjectPooling<T> where T : MonoBehaviour
         {
             GameObject temp = GameObject.Instantiate(prefab, parent);
             t = temp.GetComponent<T>();
-            m_queue.Enqueue(t); //개체를 Queue의 끝 부분에 추가합니다.
+           // m_queue.Enqueue(t); //개체를 Queue의 끝 부분에 추가합니다.
         }
         else
         {
             t = m_queue.Dequeue(); // Queue 의 시작 부분에서 개체를 제거하고 반환합니다.
             t.gameObject.SetActive(true);
-        m_queue.Enqueue(t); //빼내었거나 새로 생성한 애를 맨 마지막에 넣는다.
+           m_queue.Enqueue(t); //빼내었거나 새로 생성한 애를 맨 마지막에 넣는다.
         }
         return t;
     }
