@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
-
+using TMPro;
 
 
 public class EnemyHealth : LivingEntity
@@ -37,9 +37,10 @@ public class EnemyHealth : LivingEntity
     void Start()
     {
         maxHealth = health;
-         hpBar = GameManager.GetEnemyHPBar();
+        hpBar = GameManager.GetEnemyHPBar();
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
         hpBar.Reset(pos, 1);
+
 
     }
 
@@ -47,16 +48,16 @@ public class EnemyHealth : LivingEntity
 
     void Update()
     {
-        if(this.gameObject.activeSelf)
+        if (this.gameObject.activeSelf)
         {
-              hpBar.gameObject.SetActive(true);
-              hpBar.SetValue(health / maxHealth);
-        FrontPlr();
+            hpBar.gameObject.SetActive(true);
+            hpBar.SetValue(health / maxHealth);
+            FrontPlr();
         }
         if (isMoving)
         {
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
-           hpBar.SetPosition(pos);
+            hpBar.SetPosition(pos);
 
         }
 
@@ -65,8 +66,8 @@ public class EnemyHealth : LivingEntity
 
     public void FrontPlr()
     {
-         transform.Translate(Vector2.left * GameManager.instance.enemyMoveSpeed * Time.deltaTime);
-         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, -0.8f, playerLayer);
+        transform.Translate(Vector2.left * GameManager.instance.enemyMoveSpeed * Time.deltaTime);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, -0.8f, playerLayer);
         if (hit)
         {
 
@@ -83,14 +84,18 @@ public class EnemyHealth : LivingEntity
     public override void OnDamage(float damage)
     {
 
-        dmgText = GameManager.instance.dmgPool.GetOrCreate();
-         dmgText.transform.position = new Vector2(Random.Range( -0.1f, 0.1f), transform.position.y);
-        DamageText.damage = damage;
 
         SkillObject hitEffect = GameManager.instance.hitPool.GetOrCreate();
-        hitEffect.SetPositionData(transform.position,Quaternion.Euler(0, 0, Random.Range(0 ,360f)));
-         StartCoroutine(cAlpha());
+        hitEffect.SetPositionData(transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360f)));
+        StartCoroutine(cAlpha());
+
+       // dmgText = GameManager.instance.dmgPool.GetOrCreate();
+       dmgText = GameManager.GetDamageText();
+        dmgText.transform.position = this.transform.position;            // new Vector2(Random.Range( -0.1f, 0.1f), transform.position.y);
+        DamageText.damage = damage; // 1 5 수 반복 스트링을 스타트에 집어넣으니까 시발 어케해결하죠
         base.OnDamage(damage);
+
+
     }
 
 
@@ -98,16 +103,17 @@ public class EnemyHealth : LivingEntity
     {
 
         hpBar.gameObject.SetActive(false);
-       SpawnManager.isSpawn = true; // 죽을때 스폰 매니저에서 스폰을 트루
+        SpawnManager.isSpawn = true; // 죽을때 스폰 매니저에서 스폰을 트루
         gameObject.SetActive(false); // 적 비활성화
         health = maxHealth;
+           sr.color = new Color(1, 1, 1, 1);
     }
 
     private IEnumerator cAlpha()
     {
-        sr.color = new Color(255/ 255f, 175/ 255f, 175/ 255f, 255 / 255f);
+        sr.color = new Color(255 / 255f, 175 / 255f, 175 / 255f, 255 / 255f);
         yield return new WaitForSeconds(0.3f);
-        sr.color = new Color(1,1,1,1);
+        sr.color = new Color(1, 1, 1, 1);
     }
 
 }

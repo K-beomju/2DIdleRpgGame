@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6669472983642770016}
-  m_LocalRotation: {x: 0.46715835, y: 0, z: 0, w: 0.8841737}
+  m_LocalRotation: {x: 0.66529554, y: 0, z: 0, w: 0.7465801}
   m_LocalPosition: {x: -0.01, y: -0.30653334, z: 0.01}
   m_LocalScale: {x: 0.3, y: 0.1, z: 0.87634027}
   m_Children: []
   m_Father: {fileID: 4186562172309146530}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 55.7, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 83.41, y: 0, z: 0}
 --- !u!212 &516834265288799241
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 7192713742314991305}
   - component: {fileID: 5910846313304129679}
   - component: {fileID: 7554560991828660624}
+  - component: {fileID: 3985486483037969565}
   m_Layer: 6
   m_Name: Bat
   m_TagString: Untagged
@@ -111,7 +112,7 @@ Transform:
   m_GameObject: {fileID: 8439593827322578299}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.48, y: 3.27, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_Children:
   - {fileID: 8570627387645587848}
   m_Father: {fileID: 0}
@@ -192,7 +193,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4602091}
+  m_Size: {x: 0.4, y: 0.41}
   m_EdgeRadius: 0
 --- !u!95 &5910846313304129679
 Animator:
@@ -225,8 +226,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85903b91e5ef37446aefdf9b8b41d902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 360
-  offset: {x: -0.01, y: -0.52, z: 0}
+  health: 1
+  offset: {x: 0.03, y: -0.85, z: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 264
+--- !u!50 &3985486483037969565
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8439593827322578299}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

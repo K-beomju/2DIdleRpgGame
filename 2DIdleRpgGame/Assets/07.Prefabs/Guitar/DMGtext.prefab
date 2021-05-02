@@ -182,3 +182,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e96e6d5a0f17c244b11cfb295e8989c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animDuration: 1
+  ease: 12

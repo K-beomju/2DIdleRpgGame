@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 3539518527182708502}
   - component: {fileID: 726014647459526022}
   - component: {fileID: -106003446094900089}
+  - component: {fileID: 3054291752458628162}
   m_Layer: 6
   m_Name: Goblin
   m_TagString: Untagged
@@ -225,8 +226,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85903b91e5ef37446aefdf9b8b41d902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 2
   offset: {x: 0.06, y: -0.61, z: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!50 &3054291752458628162
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539518527182708501}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

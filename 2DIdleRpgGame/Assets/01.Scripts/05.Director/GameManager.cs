@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         barPool = new ObjectPooling<EnemyHPBar>(hpBarPrefab, canvas, 3); //hp바는 3개면 충분
         hitPool = new ObjectPooling<SkillObject>(hitEffect, this.transform, 10);
-        dmgPool = new ObjectPooling<DamageText>(textPrefab, this.transform, 5);
+        dmgPool = new ObjectPooling<DamageText>(textPrefab, this.transform, 10);
 
     }
 
@@ -70,6 +70,11 @@ public class GameManager : MonoBehaviour
     public static EnemyHPBar GetEnemyHPBar()
     {
         return instance.barPool.GetOrCreate();
+    }
+
+    public static DamageText GetDamageText()
+    {
+        return instance.dmgPool.GetOrCreate();
     }
 
 

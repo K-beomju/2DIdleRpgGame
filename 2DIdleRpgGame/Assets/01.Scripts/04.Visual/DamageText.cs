@@ -2,39 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using DG.Tweening;
 
 public class DamageText : MonoBehaviour
 {
 
 
-     TextMeshPro text;
-      Color alpha;
+    public static TextMeshPro text;
     public static float damage;
+      Color alpha;
 
 
-
+     public float animDuration;
+        public Ease ease;
     void Start()
     {
 
          text = GetComponent<TextMeshPro>();
-        text.text = damage.ToString();
-    }
+             text.text = damage.ToString();
 
+
+    }
 
     void Update()
     {
         if(gameObject.activeSelf)
         {
-        transform.Translate(new Vector3(0, 1f * Time.deltaTime, 0)); // 텍스트 위치
+               transform.DOMoveY(3f, animDuration).SetEase(ease);
              StartCoroutine(SetDeactive());
         }
+
+
     }
 
     private IEnumerator SetDeactive()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
         gameObject.SetActive(false);
+
     }
 
 
