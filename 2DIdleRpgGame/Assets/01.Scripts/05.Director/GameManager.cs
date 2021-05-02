@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject hpBarPrefab; //     private ObjectPooling<EnemyHPBar> barPool;
     public GameObject hitEffect; //  public ObjectPooling<SkillObject> hitPool;
-    public GameObject textPrefab;
+    public GameObject textObj;
+    public GameObject dropGold;
 
     [Space(45)]
     public CameraEffect camEffect;
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
     private ObjectPooling<EnemyHPBar> barPool;
     public ObjectPooling<SkillObject> hitPool;
     public ObjectPooling<DamageText> dmgPool;
+    public ObjectPooling<DropGold> dropPool;
 
 
     void Awake()
@@ -57,7 +59,8 @@ public class GameManager : MonoBehaviour
         instance = this;
         barPool = new ObjectPooling<EnemyHPBar>(hpBarPrefab, canvas, 3); //hp바는 3개면 충분
         hitPool = new ObjectPooling<SkillObject>(hitEffect, this.transform, 10);
-        dmgPool = new ObjectPooling<DamageText>(textPrefab, this.transform, 10);
+        dmgPool = new ObjectPooling<DamageText>(textObj, this.transform, 10);
+        dropPool = new ObjectPooling<DropGold>(dropGold, this.transform, 3);
 
     }
 
@@ -77,6 +80,10 @@ public class GameManager : MonoBehaviour
         return instance.dmgPool.GetOrCreate();
     }
 
+    public static DropGold GetDropGold()
+    {
+        return instance.dropPool.GetOrCreate();
+    }
 
 
     public static void CamShake(float intense, float during)

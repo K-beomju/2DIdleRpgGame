@@ -44,12 +44,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        // maxHealth = health;
-        // hpText.text = health.ToString();
-
-    }
 
     void Update()
     {

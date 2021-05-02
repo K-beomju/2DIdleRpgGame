@@ -11,8 +11,10 @@ public class EnemyHealth : LivingEntity
 
     public Vector3 offset;
     protected Rigidbody2D rigid;
+
     private EnemyHPBar hpBar;
     private DamageText dmgText;
+    private DropGold dropgold;
 
 
     private bool isMoving = true; // 윰직일 때
@@ -84,7 +86,7 @@ public class EnemyHealth : LivingEntity
     public override void OnDamage(float damage)
     {
 
-
+        DropGoldCount(2);
         SkillObject hitEffect = GameManager.instance.hitPool.GetOrCreate();
         hitEffect.SetPositionData(transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360f)));
         StartCoroutine(cAlpha());
@@ -106,7 +108,16 @@ public class EnemyHealth : LivingEntity
         SpawnManager.isSpawn = true; // 죽을때 스폰 매니저에서 스폰을 트루
         gameObject.SetActive(false); // 적 비활성화
         health = maxHealth;
-           sr.color = new Color(1, 1, 1, 1);
+        sr.color = new Color(1, 1, 1, 1);
+    }
+
+    private void DropGoldCount(int count )
+    {
+        for (int i = 0; i < count; i++)
+        {
+              dropgold = GameManager.GetDropGold();
+         dropgold.transform.position = this.transform.position;
+        }
     }
 
     private IEnumerator cAlpha()
