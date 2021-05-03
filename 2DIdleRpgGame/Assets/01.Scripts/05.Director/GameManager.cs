@@ -34,18 +34,11 @@ public class GameManager : MonoBehaviour
     [Header("BackGround")]
     public float backSpeed;
 
-
-    public Text tlqkf;
-
-
-
-
-
-
-
-
-
-
+    [Header ("GameSystem")]
+    public int dungeonCount;
+    public int stageCount;
+    public int stageMobCount;
+    public int allStageMobCount;
 
 
     private ObjectPooling<EnemyHPBar> barPool;
@@ -53,14 +46,37 @@ public class GameManager : MonoBehaviour
     public ObjectPooling<DamageText> dmgPool;
     public ObjectPooling<DropGold> dropPool;
 
+    private long gold;
+    public long Gold { get {return gold ;} set { gold = value;} }
+
+
+
+
+
+
+
+
+    void Start()
+    {
+    }
+
+
 
     void Awake()
     {
+        Gold = 20;
+        dungeonCount = 1;
+        stageCount = 1;
+        stageMobCount = 1;
+        allStageMobCount = 10;
+
+
+
         instance = this;
-        barPool = new ObjectPooling<EnemyHPBar>(hpBarPrefab, canvas, 3); //hp바는 3개면 충분
+        barPool = new ObjectPooling<EnemyHPBar>(hpBarPrefab, canvas, 3);
         hitPool = new ObjectPooling<SkillObject>(hitEffect, this.transform, 10);
         dmgPool = new ObjectPooling<DamageText>(textObj, this.transform, 10);
-        dropPool = new ObjectPooling<DropGold>(dropGold, this.transform, 3);
+        dropPool = new ObjectPooling<DropGold>(dropGold, this.transform, 4);
 
     }
 
@@ -69,7 +85,7 @@ public class GameManager : MonoBehaviour
         instance.back.SetSpeed(speed); //객체지향에서 개체내의 데이터를 다룬곳에서 다루면 코드의 복잡도를 증가시킨다.
     }
 
-    //적객체의 HP바가 필요하면
+
     public static EnemyHPBar GetEnemyHPBar()
     {
         return instance.barPool.GetOrCreate();

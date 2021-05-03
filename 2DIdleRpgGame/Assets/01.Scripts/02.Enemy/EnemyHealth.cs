@@ -86,15 +86,15 @@ public class EnemyHealth : LivingEntity
     public override void OnDamage(float damage)
     {
 
-        DropGoldCount(2);
+
         SkillObject hitEffect = GameManager.instance.hitPool.GetOrCreate();
         hitEffect.SetPositionData(transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360f)));
         StartCoroutine(cAlpha());
 
-       // dmgText = GameManager.instance.dmgPool.GetOrCreate();
+
        dmgText = GameManager.GetDamageText();
         dmgText.transform.position = this.transform.position;            // new Vector2(Random.Range( -0.1f, 0.1f), transform.position.y);
-        DamageText.damage = damage; // 1 5 수 반복 스트링을 스타트에 집어넣으니까 시발 어케해결하죠
+        DamageText.damage = damage;
         base.OnDamage(damage);
 
 
@@ -103,10 +103,10 @@ public class EnemyHealth : LivingEntity
 
     protected override void Die()
     {
-
+         DropGoldCount(2);
         hpBar.gameObject.SetActive(false);
-        SpawnManager.isSpawn = true; // 죽을때 스폰 매니저에서 스폰을 트루
-        gameObject.SetActive(false); // 적 비활성화
+        SpawnManager.isSpawn = true;
+        gameObject.SetActive(false);
         health = maxHealth;
         sr.color = new Color(1, 1, 1, 1);
     }

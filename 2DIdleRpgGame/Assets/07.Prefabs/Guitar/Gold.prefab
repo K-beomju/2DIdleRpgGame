@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffba8da1a8c819e4dad8dd759e1ecb2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animDuration: 232
+  animDuration: 1
   ease: 0
 --- !u!50 &-4160701037957804483
 Rigidbody2D:

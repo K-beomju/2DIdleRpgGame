@@ -116,9 +116,12 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < Skills[s].AttackCount; i++)
         {
-
+            if(target.gameObject.activeSelf)
+            {
             target.OnDamage(Skills[s].Damage);
             yield return new WaitForSeconds(0.1f);
+
+            }
 
         }
     }

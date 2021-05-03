@@ -10,29 +10,31 @@ public class DamageText : MonoBehaviour
 
     public static TextMeshPro text;
     public static float damage;
-      Color alpha;
+    public float animDuration;
+    public Ease ease;
+    private Color alpha;
 
-
-     public float animDuration;
-        public Ease ease;
     void Start()
     {
 
-         text = GetComponent<TextMeshPro>();
-             text.text = damage.ToString();
+        text = GetComponent<TextMeshPro>();
+        text.text = damage.ToString();
 
 
     }
 
     void Update()
     {
-        if(gameObject.activeSelf)
+        if (gameObject.activeSelf)
         {
-               transform.DOMoveY(3f, animDuration).SetEase(ease);
-             StartCoroutine(SetDeactive());
         }
+    }
 
+    void OnEnable()
+    {
 
+            transform.DOMoveY(3f, animDuration).SetEase(ease);
+            StartCoroutine(SetDeactive());
     }
 
     private IEnumerator SetDeactive()
