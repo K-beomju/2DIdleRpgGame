@@ -29,16 +29,18 @@ public class GameManager : MonoBehaviour
     [Header("Enemy")]
     public float enemyAttackRange = 0.5f;
     public float enemyAttackDamage = 1f;
-    public float enemyMoveSpeed = 1f;
+    public float enemyMoveSpeed;
+    public float _enemyMoveSpeed;
+    public float enemyBossSize;
 
     [Header("BackGround")]
     public float backSpeed;
 
     [Header ("GameSystem")]
-    public int dungeonCount;
-    public int stageCount;
-    public int stageMobCount;
-    public int allStageMobCount;
+    public int dungeonCount; // @번째 던전
+    public int stageCount; // @스테이지
+    public int stageMobCount; // {0}
+    public int allStageMobCount; // {1}
 
 
     private ObjectPooling<EnemyHPBar> barPool;
@@ -49,16 +51,6 @@ public class GameManager : MonoBehaviour
     private long gold;
     public long Gold { get {return gold ;} set { gold = value;} }
 
-
-
-
-
-
-
-
-    void Start()
-    {
-    }
 
 
 
@@ -76,7 +68,12 @@ public class GameManager : MonoBehaviour
         barPool = new ObjectPooling<EnemyHPBar>(hpBarPrefab, canvas, 3);
         hitPool = new ObjectPooling<SkillObject>(hitEffect, this.transform, 10);
         dmgPool = new ObjectPooling<DamageText>(textObj, this.transform, 10);
-        dropPool = new ObjectPooling<DropGold>(dropGold, this.transform, 4);
+        dropPool = new ObjectPooling<DropGold>(dropGold, this.transform, 8);
+
+    }
+
+    void Update()
+    {
 
     }
 
@@ -84,7 +81,6 @@ public class GameManager : MonoBehaviour
     {
         instance.back.SetSpeed(speed); //객체지향에서 개체내의 데이터를 다룬곳에서 다루면 코드의 복잡도를 증가시킨다.
     }
-
 
     public static EnemyHPBar GetEnemyHPBar()
     {

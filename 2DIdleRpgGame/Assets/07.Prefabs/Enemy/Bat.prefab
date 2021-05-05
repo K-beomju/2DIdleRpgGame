@@ -230,7 +230,7 @@ MonoBehaviour:
   offset: {x: 0.03, y: -0.85, z: 0}
   playerLayer:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 8
 --- !u!50 &3985486483037969565
 Rigidbody2D:
   serializedVersion: 4

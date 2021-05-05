@@ -55,12 +55,13 @@ public class Player : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, GameManager.instance.attackRange, enemyLayers);
         if (hit)
         {
-
+            GameManager.instance.enemyMoveSpeed = 0;
             animator.SetBool("isAttack", true);
             GameManager.SetBackgroundSpeed(0f);
         }
         else
         {
+            GameManager.instance.enemyMoveSpeed =  GameManager.instance._enemyMoveSpeed;
             animator.SetBool("isAttack", false);
             playerAudioSource.Stop();
             GameManager.SetBackgroundSpeed(0.2f);

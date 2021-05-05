@@ -10,7 +10,7 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
     public float health;
 
 
-    public virtual void OnDamage(float damage) // 이건 가지고 가야함 리빙 엔티티 적한테
+    public virtual void OnDamage(float damage)
     {
         health -= damage;
 
@@ -18,6 +18,7 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             Die();
+
         }
     }
 

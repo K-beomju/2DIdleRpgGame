@@ -9,7 +9,7 @@ public class DropGold : MonoBehaviour
     public float animDuration;
     public Ease ease;
 
-    private  Rigidbody2D rigid;
+    private Rigidbody2D rigid;
     private SpriteRenderer sr;
     private float alpha = 1;
 
@@ -17,19 +17,23 @@ public class DropGold : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         sr = gameObject.GetComponent<SpriteRenderer>();
+        gameObject.SetActive(false);
     }
+
     void Update()
     {
         if (gameObject.activeSelf)
         {
             alpha -= Time.deltaTime * 1.5f;
             StartCoroutine(SetDeactive());
+
         }
     }
     void OnEnable()
     {
-        transform.DOMove(new Vector2(-2.6f, 1.6f), animDuration).SetEase(ease).SetDelay(0.7f);
+
         rigid.AddForce(new Vector2(Random.Range(-150, -90), Random.Range(140, 200)));
+        transform.DOMove(new Vector2(-2.6f, 1.6f), animDuration).SetEase(ease).SetDelay(0.7f);
     }
     private IEnumerator SetDeactive()
     {

@@ -69,16 +69,6 @@ public class EnemyHealth : LivingEntity
     public void FrontPlr()
     {
         transform.Translate(Vector2.left * GameManager.instance.enemyMoveSpeed * Time.deltaTime);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, -0.8f, playerLayer);
-        if (hit)
-        {
-
-            GameManager.instance.enemyMoveSpeed = 0;
-        }
-        else
-        {
-            GameManager.instance.enemyMoveSpeed = 1;
-        }
     }
 
 
@@ -92,7 +82,7 @@ public class EnemyHealth : LivingEntity
         StartCoroutine(cAlpha());
 
 
-       dmgText = GameManager.GetDamageText();
+        dmgText = GameManager.GetDamageText();
         dmgText.transform.position = this.transform.position;            // new Vector2(Random.Range( -0.1f, 0.1f), transform.position.y);
         DamageText.damage = damage;
         base.OnDamage(damage);
@@ -103,28 +93,39 @@ public class EnemyHealth : LivingEntity
 
     protected override void Die()
     {
-         DropGoldCount(2);
+
+        UiManager.instance.StageCount();
+        DropGoldCount(2);
         hpBar.gameObject.SetActive(false);
-        SpawnManager.isSpawn = true;
         gameObject.SetActive(false);
+        SpawnManager.isSpawn = true;
         health = maxHealth;
-        sr.color = new Color(1, 1, 1, 1);
+        sr.color = Color.white;
+        if(SpawnManager.isBoss)
+        {
+          transform.localScale /= GameManager.instance.enemyBossSize; //곱하기로 바꾸기
+          SpawnManager.isBoss = false;
+        }
+
     }
 
-    private void DropGoldCount(int count )
+    private void DropGoldCount(int count)
     {
+
+
         for (int i = 0; i < count; i++)
         {
-              dropgold = GameManager.GetDropGold();
-         dropgold.transform.position = this.transform.position;
+            dropgold = GameManager.GetDropGold();
+            dropgold.transform.position = this.transform.position;
         }
+
     }
 
     private IEnumerator cAlpha()
     {
         sr.color = new Color(255 / 255f, 175 / 255f, 175 / 255f, 255 / 255f);
         yield return new WaitForSeconds(0.3f);
-        sr.color = new Color(1, 1, 1, 1);
+        sr.color = Color.white;
     }
 
 }
