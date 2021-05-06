@@ -41,10 +41,17 @@ public class UiManager : MonoBehaviour
         if(GameManager.instance.stageMobCount > GameManager.instance.allStageMobCount)
         {
             GameManager.instance.stageMobCount = 0;
+            GameManager.instance.enemyHealth *= 2f;
+
 
             GameManager.instance.stageCount++;
         }
         stageCountText.text = ($"{GameManager.instance.stageCount}스테이지   {GameManager.instance.stageMobCount}/{ GameManager.instance.allStageMobCount}");
+    }
+
+    public void GoldCount()
+    {
+        goldText.text = GameManager.instance.Gold.ToString();
     }
 
 }

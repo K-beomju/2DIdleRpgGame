@@ -6,16 +6,13 @@ using UnityEngine.UI;
 
 public abstract class LivingEntity : MonoBehaviour, IDamageable
 {
-    protected float maxHealth;
-    public float health;
-
 
     public virtual void OnDamage(float damage)
     {
-        health -= damage;
+        GameManager.instance.enemyHealth -= damage;
 
 
-        if (health <= 0)
+        if (GameManager.instance.enemyHealth <= 0)
         {
             Die();
 

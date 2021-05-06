@@ -12,16 +12,15 @@ public class EnemyHealth : LivingEntity
     public Vector3 offset;
     protected Rigidbody2D rigid;
 
-    private EnemyHPBar hpBar;
-    private DamageText dmgText;
-    private DropGold dropgold;
+    private EnemyHPBar hpBar;   // 풀링
+    private DamageText dmgText; // 풀링
+    private GoldText goldText;  // 풀링
+    private DropGold dropgold;  // 풀링
 
-
-    private bool isMoving = true; // 윰직일 때
 
     private SpriteRenderer sr;
     private Animator animator;
-    public LayerMask playerLayer;
+    [SerializeField] LayerMask playerLayer;
 
 
 
@@ -30,19 +29,20 @@ public class EnemyHealth : LivingEntity
 
     private void Awake()
     {
+        gameObject.SetActive(false);
         sr = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
     }
 
-    void Start()
+
+    void OnEnable()
     {
-        maxHealth = health;
+        GameManager.instance.enemyMaxHealth = GameManager.instance.enemyHealth;
         hpBar = GameManager.GetEnemyHPBar();
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
         hpBar.Reset(pos, 1);
-
 
     }
 
@@ -53,23 +53,17 @@ public class EnemyHealth : LivingEntity
         if (this.gameObject.activeSelf)
         {
             hpBar.gameObject.SetActive(true);
-            hpBar.SetValue(health / maxHealth);
-            FrontPlr();
-        }
-        if (isMoving)
-        {
+            hpBar.SetValue(GameManager.instance.enemyHealth / GameManager.instance.enemyMaxHealth);
+
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
             hpBar.SetPosition(pos);
 
+            transform.Translate(Vector2.left * GameManager.instance.enemyMoveSpeed * Time.deltaTime);
         }
 
+
     }
 
-
-    public void FrontPlr()
-    {
-        transform.Translate(Vector2.left * GameManager.instance.enemyMoveSpeed * Time.deltaTime);
-    }
 
 
 
@@ -77,14 +71,13 @@ public class EnemyHealth : LivingEntity
     {
 
 
-        SkillObject hitEffect = GameManager.instance.hitPool.GetOrCreate();
-        hitEffect.SetPositionData(transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360f)));
+        OnHitEffect();
         StartCoroutine(cAlpha());
 
 
         dmgText = GameManager.GetDamageText();
         dmgText.transform.position = this.transform.position;            // new Vector2(Random.Range( -0.1f, 0.1f), transform.position.y);
-        DamageText.damage = damage;
+
         base.OnDamage(damage);
 
 
@@ -94,31 +87,48 @@ public class EnemyHealth : LivingEntity
     protected override void Die()
     {
 
-        UiManager.instance.StageCount();
+        GameManager.instance.Gold += GameManager.instance.enemyGold;
+        UiManager.instance.GoldCount();
+
+        UpGoldText();
         DropGoldCount(2);
+
         hpBar.gameObject.SetActive(false);
         gameObject.SetActive(false);
+
         SpawnManager.isSpawn = true;
-        health = maxHealth;
+        GameManager.instance.enemyHealth = GameManager.instance.enemyMaxHealth;
         sr.color = Color.white;
-        if(SpawnManager.isBoss)
+
+        if (SpawnManager.isBoss)
         {
-          transform.localScale /= GameManager.instance.enemyBossSize; //곱하기로 바꾸기
-          SpawnManager.isBoss = false;
+            transform.localScale *= 0.8f;
+            SpawnManager.isBoss = false;
         }
+        UiManager.instance.StageCount();
 
     }
 
     private void DropGoldCount(int count)
     {
-
-
         for (int i = 0; i < count; i++)
         {
             dropgold = GameManager.GetDropGold();
             dropgold.transform.position = this.transform.position;
         }
 
+    }
+
+    private void UpGoldText()
+    {
+        goldText = GameManager.GetGoldText();
+        goldText.transform.position = GameManager.instance.goldTxt.position;
+    }
+
+    private void OnHitEffect()
+    {
+          SkillObject hitEffect = GameManager.instance.hitPool.GetOrCreate();
+        hitEffect.SetPositionData(transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360f)));
     }
 
     private IEnumerator cAlpha()

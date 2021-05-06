@@ -8,37 +8,44 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public RectTransform canvas;
+    public Transform goldTxt;
 
-    public GameObject hpBarPrefab; //     private ObjectPooling<EnemyHPBar> barPool;
-    public GameObject hitEffect; //  public ObjectPooling<SkillObject> hitPool;
+
+    public GameObject hpBarPrefab;
+    public GameObject hitEffect;
     public GameObject textObj;
     public GameObject dropGold;
+    public GameObject textGold;
 
     [Space(45)]
     public CameraEffect camEffect;
     [SerializeField]
     private BackGround back;
-    [Space(20)]
+
 
     [Header("Player")]
-    public float attackDamage; // 플레이어 공격력, 공격범위
+    public float attackDamage;
     public float attackRange;
     public float attackSpeed;
     public float attackDelay;
 
+
     [Header("Enemy")]
-    public float enemyAttackRange = 0.5f;
-    public float enemyAttackDamage = 1f;
-    public float enemyMoveSpeed;
+    public float enemyMoveSpeed; [HideInInspector]
     public float _enemyMoveSpeed;
     public float enemyBossSize;
+    [HideInInspector]
+    public float enemyMaxHealth;
+    public float enemyHealth;
+    public long enemyGold;
+
 
     [Header("BackGround")]
     public float backSpeed;
 
-    [Header ("GameSystem")]
+    [Header("GameSystem")]
     public int dungeonCount; // @번째 던전
-    public int stageCount; // @스테이지
+    public int stageCount; // @스테이지s
     public int stageMobCount; // {0}
     public int allStageMobCount; // {1}
 
@@ -47,9 +54,11 @@ public class GameManager : MonoBehaviour
     public ObjectPooling<SkillObject> hitPool;
     public ObjectPooling<DamageText> dmgPool;
     public ObjectPooling<DropGold> dropPool;
+    public ObjectPooling<GoldText> goldPool;
+
 
     private long gold;
-    public long Gold { get {return gold ;} set { gold = value;} }
+    public long Gold { get { return gold; } set { gold = value; } }
 
 
 
@@ -69,20 +78,19 @@ public class GameManager : MonoBehaviour
         hitPool = new ObjectPooling<SkillObject>(hitEffect, this.transform, 10);
         dmgPool = new ObjectPooling<DamageText>(textObj, this.transform, 10);
         dropPool = new ObjectPooling<DropGold>(dropGold, this.transform, 8);
+        goldPool = new ObjectPooling<GoldText>(textGold, this.transform, 8);
 
     }
 
-    void Update()
-    {
 
-    }
+
 
     public static void SetBackgroundSpeed(float speed)
     {
         instance.back.SetSpeed(speed); //객체지향에서 개체내의 데이터를 다룬곳에서 다루면 코드의 복잡도를 증가시킨다.
     }
 
-    public static EnemyHPBar GetEnemyHPBar()
+    public static EnemyHPBar GetEnemyHPBar() // 적 HP bar
     {
         return instance.barPool.GetOrCreate();
     }
@@ -90,6 +98,11 @@ public class GameManager : MonoBehaviour
     public static DamageText GetDamageText()
     {
         return instance.dmgPool.GetOrCreate();
+    }
+
+    public static GoldText GetGoldText()
+    {
+        return instance.goldPool.GetOrCreate();
     }
 
     public static DropGold GetDropGold()

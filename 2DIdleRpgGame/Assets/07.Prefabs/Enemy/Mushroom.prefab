@@ -165,8 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85903b91e5ef37446aefdf9b8b41d902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
-  offset: {x: 0.06, y: -0.66, z: 0}
+  health: 280
+  offset: {x: 0.059, y: -0.64, z: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8

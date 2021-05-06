@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50094423}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.92, y: 2.55, z: 0}
+  m_LocalPosition: {x: 1.72, y: 2.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1913023987}
@@ -1219,6 +1219,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &738890691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 738890692}
+  m_Layer: 0
+  m_Name: GoldTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &738890692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738890691}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.2, y: 1.48, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &781723491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,7 +1283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000024796, y: -127.29199}
+  m_AnchoredPosition: {x: -0.0000057215784, y: -127.29199}
   m_SizeDelta: {x: 295.4906, y: 75.3872}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &781723493
@@ -1710,21 +1740,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 1608605213}
+  goldTxt: {fileID: 738890692}
   hpBarPrefab: {fileID: 1626273429108875262, guid: 3f954add9e2a00e47b3a742f1fbf60dc, type: 3}
   hitEffect: {fileID: 1185299217049651283, guid: edd447bae07d8ae4dbd844f38d4df513, type: 3}
   textObj: {fileID: 391738065084621020, guid: 7d3fa83d6521b26418828088ff3b508a, type: 3}
   dropGold: {fileID: 5195050503126189624, guid: 237344367877c4446a1841d307cb2d9f, type: 3}
+  textGold: {fileID: 391738065084621020, guid: 6bac32090a0953c4298da87f8e463f01, type: 3}
   camEffect: {fileID: 1301124984}
   back: {fileID: 114646694}
   attackDamage: 100
   attackRange: 0.8
   attackSpeed: 1
   attackDelay: 10
-  enemyAttackRange: 0.5
-  enemyAttackDamage: 20
   enemyMoveSpeed: 1
-  _enemyMoveSpeed: 7
-  enemyBossSize: 1.2
+  _enemyMoveSpeed: 3
+  enemyBossSize: 1.25
+  enemyMaxHealth: 0
+  enemyHealth: 280
+  enemyGold: 10
   backSpeed: 0.69
   dungeonCount: 0
   stageCount: 0
@@ -2641,8 +2674,8 @@ MonoBehaviour:
   - {fileID: 8439593827322578299, guid: e3950bd44153ad34c99da0c97eada2ce, type: 3}
   - {fileID: 6763092074123242171, guid: 43366e5af2f8df64a845722fef6e9157, type: 3}
   - {fileID: 7356798288791430885, guid: d666e129e9576d74cb0ed789a210f054, type: 3}
-  curEnemyIndex: 0
   spawnPosition: {fileID: 50094423}
+  curEnemyIndex: 0
 --- !u!1 &2096027459
 GameObject:
   m_ObjectHideFlags: 0

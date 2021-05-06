@@ -8,12 +8,15 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     private ObjectPooling<EnemyHealth>[] enemyPool;
-    [SerializeField] GameObject[] enemyGroup;
-    public static bool isSpawn;
-    public int curEnemyIndex = 0;
+    private EnemyHealth enemy;
+    public GameObject[] enemyGroup;
     public GameObject spawnPosition;
 
+    public int curEnemyIndex = 0;
+    public static bool isSpawn;
     public static bool isBoss = false;
+
+
 
 
     void Awake()
@@ -29,6 +32,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         isSpawn = true;
+
     }
 
     void Update()
@@ -37,9 +41,10 @@ public class SpawnManager : MonoBehaviour
         {
             if (GameManager.instance.stageMobCount < 10)
             {
+
                 SpawnEnemy();
             }
-            else if(GameManager.instance.stageMobCount == 10)
+            else
             {
                 SpawnBoss();
             }
@@ -53,7 +58,7 @@ public class SpawnManager : MonoBehaviour
     {
 
         isSpawn = false;
-        EnemyHealth enemy = enemyPool[curEnemyIndex].GetOrCreate();
+        enemy = enemyPool[curEnemyIndex].GetOrCreate();
         enemy.transform.position = spawnPosition.transform.position;
         if (curEnemyIndex >= enemyGroup.Length - 1)
         {
@@ -68,9 +73,10 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnBoss()
     {
+
         isBoss = true;
         isSpawn = false;
-        EnemyHealth enemy = enemyPool[Random.Range(0,enemyGroup.Length)].GetOrCreate();
+        enemy = enemyPool[Random.Range(0, enemyGroup.Length - 1)].GetOrCreate();
         enemy.transform.position = spawnPosition.transform.position;
         enemy.transform.localScale *= GameManager.instance.enemyBossSize;
 
