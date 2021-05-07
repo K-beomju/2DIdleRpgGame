@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public enum SkillCategory
 {
-    BashAttack = 0,
-    TornadoAttack = 1
+    BashAttack = 0
 }
 
 public class Player : MonoBehaviour
@@ -16,13 +15,8 @@ public class Player : MonoBehaviour
     public Transform attackPoint;
     public LayerMask enemyLayers;
 
-    public Text hpText;
-    public Slider slider;
-
-
     public AudioClip AttackClip;
     private AudioSource playerAudioSource;
-    public GameObject attackSpeedUpObj;
 
 
 
@@ -105,8 +99,6 @@ public class Player : MonoBehaviour
                 StartCoroutine(hitEffecting(target, 0));
             }
 
-         //   target.GetComponent<Rigidbody2D>().AddForce(new Vector2(100, 200));
-
 
         }
     }
@@ -131,66 +123,8 @@ public class Player : MonoBehaviour
     {
         if (attackPoint == null)
             return;
-        ///  Debug.DrawRay(transform.position, transform.right * GameManager.instance.attackRange, Color.yellow);
+
         Gizmos.DrawWireSphere(attackPoint.position, Skills[0].Range);
     }
-
-
-
-
-    // public override void OnDamage(float damage)
-    // {
-    //     base.OnDamage(damage);
-    //     slider.value = health / maxHealth;
-    //     hpText.text = health.ToString();
-    // }
-
-    // protected override void Die()
-    // {
-    //     gameObject.SetActive(false);
-    //     slider.value = health / maxHealth;
-    //     hpText.text = "0";
-
-    // }
-
-//    public void AttackSpeed()
-//     {
-
-//         StartCoroutine(UpAttackSpeed(GameManager.instance.attackSpeed, GameManager.instance.attackDelay));
-
-//     }
-//     private IEnumerator UpAttackSpeed(float changeSpeed, float delay)
-//     {
-//         attackSpeedUpObj.SetActive(true);
-//         animator.SetFloat("attackSpeed", changeSpeed);
-//         yield return new WaitForSeconds(delay);
-//         attackSpeedUpObj.SetActive(false);
-//         animator.SetFloat("attackSpeed", 0.7f);
-//     }
-
-
-
-
-    // public void TornadoAttack()
-    // {
-    //     SkillObject tornadoAttack = skillPool[(int)SkillCategory.TornadoAttack].GetOrCreate();
-    //     tornadoAttack.SetPositionData(attackPoint.position + offSet, Quaternion.identity);
-
-    //     GameManager.CamShake(3, 0.5f);
-    //     Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(tornadoAttack.transform.position, Skills[1].Range, enemyLayers);
-    //     foreach (Collider2D enemy in enemiesToDamage)
-    //     {
-    //         EnemyHealth target = enemy.transform.GetComponent<EnemyHealth>();
-    //         if (target != null)
-    //         {
-    //             StartCoroutine(hitEffecting(target, 1));
-    //         }
-
-    //         target.GetComponent<Rigidbody2D>().AddForce(new Vector2(300, 0));
-
-
-    //     }
-    // }
-
 
 }

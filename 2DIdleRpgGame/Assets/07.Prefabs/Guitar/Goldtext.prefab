@@ -183,4 +183,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ease: 0
-  animDuration: 1
+  animDuration: 3

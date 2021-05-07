@@ -12,10 +12,6 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] enemyGroup;
     public GameObject spawnPosition;
 
-    public int curEnemyIndex = 0;
-    public static bool isSpawn;
-    public static bool isBoss = false;
-
 
 
 
@@ -29,15 +25,9 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-    void Start()
-    {
-        isSpawn = true;
-
-    }
-
     void Update()
     {
-        if (isSpawn)
+        if (GameManager.instance.isSpawn)
         {
             if (GameManager.instance.stageMobCount < 10)
             {
@@ -57,16 +47,20 @@ public class SpawnManager : MonoBehaviour
     void SpawnEnemy()
     {
 
-        isSpawn = false;
-        enemy = enemyPool[curEnemyIndex].GetOrCreate();
+        GameManager.instance.isSpawn = false;
+        enemy = enemyPool[GameManager.instance.curEnemyIndex].GetOrCreate();
         enemy.transform.position = spawnPosition.transform.position;
-        if (curEnemyIndex >= enemyGroup.Length - 1)
+        GameManager.instance.destinatinon = enemy.transform.position.y + 0.7f;
+        GameManager.instance.enemyMaxHealth = GameManager.instance.enemyHealth;
+
+
+        if (GameManager.instance.curEnemyIndex >= enemyGroup.Length - 1)
         {
-            curEnemyIndex = 0;
+            GameManager.instance.curEnemyIndex = 0;
         }
         else
         {
-            curEnemyIndex++;
+            GameManager.instance.curEnemyIndex++;
         }
 
     }
@@ -74,12 +68,15 @@ public class SpawnManager : MonoBehaviour
     void SpawnBoss()
     {
 
-        isBoss = true;
-        isSpawn = false;
+        GameManager.instance.isBoss = true;
+        GameManager.instance.isSpawn = false;
         enemy = enemyPool[Random.Range(0, enemyGroup.Length - 1)].GetOrCreate();
         enemy.transform.position = spawnPosition.transform.position;
+        GameManager.instance.destinatinon = enemy.transform.position.y + 0.7f;
         enemy.transform.localScale *= GameManager.instance.enemyBossSize;
-
+        GameManager.instance.enemyHealth = GameManager.instance.EnemyBossHealth;
 
     }
+
+
 }

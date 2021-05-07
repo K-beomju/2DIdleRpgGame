@@ -6,17 +6,18 @@ using DG.Tweening;
 public class DropGold : MonoBehaviour
 {
 
-    public float animDuration;
-    public Ease ease;
+    private float animDuration =1;
+    private float alpha = 1;
 
+    public Ease ease;
     private Rigidbody2D rigid;
     private SpriteRenderer sr;
-    private float alpha = 1;
+
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        sr = gameObject.GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
         gameObject.SetActive(false);
     }
 
@@ -29,9 +30,11 @@ public class DropGold : MonoBehaviour
 
         }
     }
+
+
+
     void OnEnable()
     {
-
         rigid.AddForce(new Vector2(Random.Range(-150, -90), Random.Range(140, 200)));
         transform.DOMove(new Vector2(-2.6f, 1.6f), animDuration).SetEase(ease).SetDelay(0.7f);
     }

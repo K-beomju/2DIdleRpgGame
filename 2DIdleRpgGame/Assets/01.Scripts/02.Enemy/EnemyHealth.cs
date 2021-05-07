@@ -10,6 +10,7 @@ public class EnemyHealth : LivingEntity
 {
 
     public Vector3 offset;
+    public Vector3 bossOffset;
     protected Rigidbody2D rigid;
 
     private EnemyHPBar hpBar;   // 풀링
@@ -20,12 +21,7 @@ public class EnemyHealth : LivingEntity
 
     private SpriteRenderer sr;
     private Animator animator;
-    [SerializeField] LayerMask playerLayer;
-
-
-
-
-
+    public LayerMask playerLayer;
 
     private void Awake()
     {
@@ -39,13 +35,20 @@ public class EnemyHealth : LivingEntity
 
     void OnEnable()
     {
-        GameManager.instance.enemyMaxHealth = GameManager.instance.enemyHealth;
+
         hpBar = GameManager.GetEnemyHPBar();
-        Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
-        hpBar.Reset(pos, 1);
+        hpBar.Reset(ScreenTransform(offset), 1);
+
+        if (GameManager.instance.isBoss)
+        {
+
+            hpBar.transform.localScale = new Vector3(1.5f, 1, 0);
+            hpBar.Reset(ScreenTransform(bossOffset), 1);
+
+        }
+
 
     }
-
 
 
     void Update()
@@ -53,11 +56,16 @@ public class EnemyHealth : LivingEntity
         if (this.gameObject.activeSelf)
         {
             hpBar.gameObject.SetActive(true);
+            if (GameManager.instance.isBoss)
+            {
+                hpBar.SetValue(GameManager.instance.enemyHealth / GameManager.instance.EnemyBossHealth);
+              hpBar.SetPosition(ScreenTransform(bossOffset));
+            }
+            else
+            {
             hpBar.SetValue(GameManager.instance.enemyHealth / GameManager.instance.enemyMaxHealth);
-
-            Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + offset);
-            hpBar.SetPosition(pos);
-
+         hpBar.SetPosition(ScreenTransform(offset));
+            }
             transform.Translate(Vector2.left * GameManager.instance.enemyMoveSpeed * Time.deltaTime);
         }
 
@@ -65,50 +73,52 @@ public class EnemyHealth : LivingEntity
     }
 
 
+    public Vector3 ScreenTransform(Vector3 Correction)
+    {
+        Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + Correction);
+        return pos;
+    }
 
 
     public override void OnDamage(float damage)
     {
-
-
         OnHitEffect();
+        UpDamageText();
         StartCoroutine(cAlpha());
-
-
-        dmgText = GameManager.GetDamageText();
-        dmgText.transform.position = this.transform.position;            // new Vector2(Random.Range( -0.1f, 0.1f), transform.position.y);
-
         base.OnDamage(damage);
-
-
     }
 
 
     protected override void Die()
     {
-
+        // Gold , UI
         GameManager.instance.Gold += GameManager.instance.enemyGold;
         UiManager.instance.GoldCount();
-
+        UiManager.instance.StageCount();
+        // GoldTxt , DropGold
         UpGoldText();
         DropGoldCount(2);
-
+        // false
         hpBar.gameObject.SetActive(false);
         gameObject.SetActive(false);
-
-        SpawnManager.isSpawn = true;
+        // 초기화
+        GameManager.instance.isSpawn= true;
         GameManager.instance.enemyHealth = GameManager.instance.enemyMaxHealth;
         sr.color = Color.white;
 
-        if (SpawnManager.isBoss)
+        if (GameManager.instance.isBoss)
         {
             transform.localScale *= 0.8f;
-            SpawnManager.isBoss = false;
+            hpBar.transform.localScale = new Vector3(1, 1, 0);
+            GameManager.instance.isBoss = false;
+
         }
-        UiManager.instance.StageCount();
 
     }
 
+
+
+    #region 풀링 함수
     private void DropGoldCount(int count)
     {
         for (int i = 0; i < count; i++)
@@ -125,17 +135,26 @@ public class EnemyHealth : LivingEntity
         goldText.transform.position = GameManager.instance.goldTxt.position;
     }
 
+    private void UpDamageText()
+    {
+        dmgText = GameManager.GetDamageText();
+        dmgText.transform.position = this.transform.position;
+    }
+
     private void OnHitEffect()
     {
-          SkillObject hitEffect = GameManager.instance.hitPool.GetOrCreate();
+        SkillObject hitEffect = GameManager.instance.hitPool.GetOrCreate();
         hitEffect.SetPositionData(transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360f)));
     }
 
     private IEnumerator cAlpha()
+
     {
-        sr.color = new Color(255 / 255f, 175 / 255f, 175 / 255f, 255 / 255f);
+        sr.color = new Color(1, 175 / 255f, 175 / 255f, 1);
         yield return new WaitForSeconds(0.3f);
         sr.color = Color.white;
     }
+    #endregion
+
 
 }

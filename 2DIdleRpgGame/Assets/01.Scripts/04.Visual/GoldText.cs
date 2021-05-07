@@ -7,14 +7,10 @@ using UnityEngine.UI;
 
 public class GoldText : MonoBehaviour
 {
-
-    public static TextMeshPro text;
+    private TextMeshPro text;
+    private float animDuration = 1;
+    private float alpha = 1;
     public Ease ease;
-    private Color alpha;
-
-
-    public float animDuration;
-
 
     void Awake()
     {
@@ -25,15 +21,25 @@ public class GoldText : MonoBehaviour
     {
         text = GetComponent<TextMeshPro>();
         text.text = ($"+{GameManager.instance.enemyGold}");
-        transform.DOMoveY(2f, animDuration).SetEase(ease);
-        StartCoroutine(SetDeactive());
+        transform.DOMoveY(1.8f, animDuration).SetEase(ease);
+
+    }
+
+    void Update()
+    {
+        if(gameObject.activeSelf)
+        {
+           StartCoroutine(SetDeactive());
+           alpha -= Time.deltaTime * 2f;
+        }
     }
 
     private IEnumerator SetDeactive()
     {
-        yield return new WaitForSeconds(0.3f);
+        text.color = new Color(251, 255, 0, alpha);
+        yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);
-
+        alpha = 1f;
     }
 
 

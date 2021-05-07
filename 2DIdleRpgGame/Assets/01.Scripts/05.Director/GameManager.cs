@@ -10,45 +10,63 @@ public class GameManager : MonoBehaviour
     public RectTransform canvas;
     public Transform goldTxt;
 
-
+    [Header("Pooling Objs")]
     public GameObject hpBarPrefab;
     public GameObject hitEffect;
     public GameObject textObj;
     public GameObject dropGold;
     public GameObject textGold;
 
-    [Space(45)]
-    public CameraEffect camEffect;
-    [SerializeField]
-    private BackGround back;
 
 
-    [Header("Player")]
+
+    [Header("Player")] [Space(20)]
     public float attackDamage;
     public float attackRange;
     public float attackSpeed;
     public float attackDelay;
 
 
-    [Header("Enemy")]
-    public float enemyMoveSpeed; [HideInInspector]
+    [Header("Enemy")]  [Space(20)]
+    public float enemyMoveSpeed;
     public float _enemyMoveSpeed;
     public float enemyBossSize;
+    private float enemyBossHealth;
+    public float EnemyBossHealth { get { return enemyMaxHealth * 5; } }
     [HideInInspector]
     public float enemyMaxHealth;
     public float enemyHealth;
     public long enemyGold;
 
 
-    [Header("BackGround")]
-    public float backSpeed;
-
-    [Header("GameSystem")]
+    [Header("GameSystem")]  [Space(20)]
     public int dungeonCount; // @번째 던전
     public int stageCount; // @스테이지s
     public int stageMobCount; // {0}
     public int allStageMobCount; // {1}
+    public bool bFadeInOut; // 페이드 아웃
+    private long gold;
+    public long Gold { get { return gold; } set { gold = value; } }
 
+
+
+    [Header("SpawnSystem")]  [Space(20)]
+    public int curEnemyIndex = 0;
+    public bool isSpawn;
+    public bool isBoss = false;
+    public GameObject spawnManager;
+
+
+
+    [Header("Text")]  [Space(20)]
+    public float destinatinon;
+
+
+
+    [Header("Etc")]  [Space(20)]
+    public CameraEffect camEffect;
+    public BackGround back;
+    public float backSpeed;
 
     private ObjectPooling<EnemyHPBar> barPool;
     public ObjectPooling<SkillObject> hitPool;
@@ -57,19 +75,12 @@ public class GameManager : MonoBehaviour
     public ObjectPooling<GoldText> goldPool;
 
 
-    private long gold;
-    public long Gold { get { return gold; } set { gold = value; } }
 
 
 
 
     void Awake()
     {
-        Gold = 20;
-        dungeonCount = 1;
-        stageCount = 1;
-        stageMobCount = 1;
-        allStageMobCount = 10;
 
 
 
@@ -80,9 +91,16 @@ public class GameManager : MonoBehaviour
         dropPool = new ObjectPooling<DropGold>(dropGold, this.transform, 8);
         goldPool = new ObjectPooling<GoldText>(textGold, this.transform, 8);
 
+        isSpawn = true;
+        isBoss = false;
+        Gold = 20;
+        dungeonCount = 1;
+        stageCount = 1;
+        stageMobCount = 1;
+        allStageMobCount = 10;
+        bFadeInOut = false;
+        destinatinon = 1;
     }
-
-
 
 
     public static void SetBackgroundSpeed(float speed)

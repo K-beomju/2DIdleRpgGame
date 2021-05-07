@@ -6,12 +6,10 @@ using DG.Tweening;
 
 public class DamageText : MonoBehaviour
 {
-    public static TextMeshPro text;
-    public Ease ease;
+    private TextMeshPro text;
     private Color alpha;
-
-
-    public float animDuration;
+    private float animDuration = 1;
+    public Ease ease;
 
     void Awake()
     {
@@ -22,7 +20,7 @@ public class DamageText : MonoBehaviour
     {
         text = GetComponent<TextMeshPro>();
         text.text = GameManager.instance.attackDamage.ToString();
-        transform.DOMoveY(3f, animDuration).SetEase(ease);
+        transform.DOMoveY(GameManager.instance.destinatinon, animDuration).SetEase(ease);
         StartCoroutine(SetDeactive());
     }
 
