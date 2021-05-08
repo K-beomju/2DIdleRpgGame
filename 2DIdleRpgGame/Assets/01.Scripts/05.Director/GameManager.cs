@@ -22,9 +22,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Player")] [Space(20)]
     public float attackDamage;
+    public float attackCriticalDamage;
     public float attackRange;
     public float attackSpeed;
     public float attackDelay;
+    public bool isCritical;
 
 
     [Header("Enemy")]  [Space(20)]
@@ -33,8 +35,7 @@ public class GameManager : MonoBehaviour
     public float enemyBossSize;
     private float enemyBossHealth;
     public float EnemyBossHealth { get { return enemyMaxHealth * 5; } }
-    [HideInInspector]
-    public float enemyMaxHealth;
+    public float enemyMaxHealth {get; set; }
     public float enemyHealth;
     public long enemyGold;
 
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
     public int stageCount; // @스테이지s
     public int stageMobCount; // {0}
     public int allStageMobCount; // {1}
-    public bool bFadeInOut; // 페이드 아웃
+    public bool isFadeInOut; // 페이드 아웃
     private long gold;
     public long Gold { get { return gold; } set { gold = value; } }
 
@@ -54,7 +55,6 @@ public class GameManager : MonoBehaviour
     public int curEnemyIndex = 0;
     public bool isSpawn;
     public bool isBoss = false;
-    public GameObject spawnManager;
 
 
 
@@ -69,10 +69,10 @@ public class GameManager : MonoBehaviour
     public float backSpeed;
 
     private ObjectPooling<EnemyHPBar> barPool;
-    public ObjectPooling<SkillObject> hitPool;
-    public ObjectPooling<DamageText> dmgPool;
-    public ObjectPooling<DropGold> dropPool;
-    public ObjectPooling<GoldText> goldPool;
+    private ObjectPooling<DamageText> dmgPool;
+    private ObjectPooling<DropGold> dropPool;
+    private ObjectPooling<GoldText> goldPool;
+    private ObjectPooling<SkillObject> hitPool;
 
 
 
@@ -81,9 +81,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-
-
-
         instance = this;
         barPool = new ObjectPooling<EnemyHPBar>(hpBarPrefab, canvas, 3);
         hitPool = new ObjectPooling<SkillObject>(hitEffect, this.transform, 10);
@@ -93,13 +90,15 @@ public class GameManager : MonoBehaviour
 
         isSpawn = true;
         isBoss = false;
-        Gold = 20;
+        isFadeInOut = false;
+        isCritical = false;
         dungeonCount = 1;
         stageCount = 1;
         stageMobCount = 1;
-        allStageMobCount = 10;
-        bFadeInOut = false;
         destinatinon = 1;
+        allStageMobCount = 10;
+        attackCriticalDamage = 1.5f;
+        Gold = 20;
     }
 
 
@@ -126,6 +125,11 @@ public class GameManager : MonoBehaviour
     public static DropGold GetDropGold()
     {
         return instance.dropPool.GetOrCreate();
+    }
+
+    public static SkillObject GetHitEffect()
+    {
+        return instance.hitPool.GetOrCreate();
     }
 
 

@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using UnityEngine.UI;
+
 
 public enum SkillCategory
 {
@@ -29,6 +28,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+
         animator = GetComponent<Animator>();
         playerAudioSource = GetComponent<AudioSource>();
         skillPool = new ObjectPooling<SkillObject>[skillObjs.Length];
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            GameManager.instance.enemyMoveSpeed =  GameManager.instance._enemyMoveSpeed;
+            GameManager.instance.enemyMoveSpeed = GameManager.instance._enemyMoveSpeed;
             animator.SetBool("isAttack", false);
             playerAudioSource.Stop();
             GameManager.SetBackgroundSpeed(0.2f);
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
 
     public void Attack()
     {
-
+        int critiRan = Random.Range(0, 101);
         GameManager.CamShake(0.8f, 0.2f);
         Collider2D[] hitEnemis = Physics2D.OverlapCircleAll(transform.position, GameManager.instance.attackRange, enemyLayers);
         foreach (Collider2D enemy in hitEnemis)
@@ -72,7 +72,15 @@ public class Player : MonoBehaviour
             IDamageable target = enemy.transform.GetComponent<IDamageable>();
             if (target != null)
             {
-                target.OnDamage(GameManager.instance.attackDamage);
+                if (critiRan <= 30)
+                {
+                    GameManager.instance.isCritical = true;
+                    target.OnDamage(GameManager.instance.attackDamage * GameManager.instance.attackCriticalDamage);
+                }
+                else
+                {
+                    target.OnDamage(GameManager.instance.attackDamage);
+                }
             }
 
         }
@@ -109,10 +117,10 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < Skills[s].AttackCount; i++)
         {
-            if(target.gameObject.activeSelf)
+            if (target.gameObject.activeSelf)
             {
-            target.OnDamage(Skills[s].Damage);
-            yield return new WaitForSeconds(0.1f);
+                target.OnDamage(Skills[s].Damage);
+                yield return new WaitForSeconds(0.1f);
 
             }
 

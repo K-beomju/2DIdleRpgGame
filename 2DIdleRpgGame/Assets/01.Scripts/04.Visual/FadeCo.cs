@@ -29,6 +29,8 @@ public class FadeCo : MonoBehaviour
 
     StringBuilder sb;
 
+    public SpawnManager spawn;
+
     private void Awake()
     {
         imgBg = this.gameObject.GetComponent<Image>();
@@ -40,9 +42,9 @@ public class FadeCo : MonoBehaviour
     }
     void Update()
     {
-        if (GameManager.instance.bFadeInOut && fadeState == eFadeState.None)
+        if (GameManager.instance.isFadeInOut && fadeState == eFadeState.None)
         {
-            GameManager.instance.spawnManager.SetActive(false);
+            spawn.enabled = false;
             fadeState = eFadeState.None;
             NextState();
         }
@@ -81,8 +83,9 @@ public class FadeCo : MonoBehaviour
                 if (timer > fadeOutCount)
                 {
                     fadeState = eFadeState.ChangeBg;
-                    GameManager.instance.bFadeInOut = false;
-                    GameManager.instance.spawnManager.SetActive(true);
+                    GameManager.instance.isFadeInOut = false;
+                    spawn.enabled = true;
+
                     timer = 0;
 
                 }

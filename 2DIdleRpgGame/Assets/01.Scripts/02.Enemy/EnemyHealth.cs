@@ -13,10 +13,11 @@ public class EnemyHealth : LivingEntity
     public Vector3 bossOffset;
     protected Rigidbody2D rigid;
 
-    private EnemyHPBar hpBar;   // 풀링
-    private DamageText dmgText; // 풀링
-    private GoldText goldText;  // 풀링
-    private DropGold dropgold;  // 풀링
+    private EnemyHPBar hpBar;
+    private DamageText dmgText;
+    private GoldText goldText;
+    private DropGold dropgold;
+    private SkillObject hitEffect;
 
 
     private SpriteRenderer sr;
@@ -59,12 +60,12 @@ public class EnemyHealth : LivingEntity
             if (GameManager.instance.isBoss)
             {
                 hpBar.SetValue(GameManager.instance.enemyHealth / GameManager.instance.EnemyBossHealth);
-              hpBar.SetPosition(ScreenTransform(bossOffset));
+                hpBar.SetPosition(ScreenTransform(bossOffset));
             }
             else
             {
-            hpBar.SetValue(GameManager.instance.enemyHealth / GameManager.instance.enemyMaxHealth);
-         hpBar.SetPosition(ScreenTransform(offset));
+                hpBar.SetValue(GameManager.instance.enemyHealth / GameManager.instance.enemyMaxHealth);
+                hpBar.SetPosition(ScreenTransform(offset));
             }
             transform.Translate(Vector2.left * GameManager.instance.enemyMoveSpeed * Time.deltaTime);
         }
@@ -83,7 +84,7 @@ public class EnemyHealth : LivingEntity
     public override void OnDamage(float damage)
     {
         OnHitEffect();
-        UpDamageText();
+        UpDamageText(damage);
         StartCoroutine(cAlpha());
         base.OnDamage(damage);
     }
@@ -102,7 +103,7 @@ public class EnemyHealth : LivingEntity
         hpBar.gameObject.SetActive(false);
         gameObject.SetActive(false);
         // 초기화
-        GameManager.instance.isSpawn= true;
+        GameManager.instance.isSpawn = true;
         GameManager.instance.enemyHealth = GameManager.instance.enemyMaxHealth;
         sr.color = Color.white;
 
@@ -135,15 +136,16 @@ public class EnemyHealth : LivingEntity
         goldText.transform.position = GameManager.instance.goldTxt.position;
     }
 
-    private void UpDamageText()
+    private void UpDamageText(float damage)
     {
         dmgText = GameManager.GetDamageText();
+        dmgText.damageText.text = damage.ToString();
         dmgText.transform.position = this.transform.position;
     }
 
     private void OnHitEffect()
     {
-        SkillObject hitEffect = GameManager.instance.hitPool.GetOrCreate();
+        hitEffect = GameManager.GetHitEffect();
         hitEffect.SetPositionData(transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360f)));
     }
 
