@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
     public BackGround back;
     public float backSpeed;
 
+
+
     private ObjectPooling<EnemyHPBar> barPool;
     private ObjectPooling<DamageText> dmgPool;
     private ObjectPooling<DropGold> dropPool;

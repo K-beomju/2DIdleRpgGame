@@ -13,12 +13,27 @@ public class UiManager : MonoBehaviour
     public Text stageCountText;
     public Button[] buttons;
     public GameObject[] panels;
+    public GameObject[] lockObjs;
 
 
-
+    [Header("Timer")]
     public Slider slider;
     public Text Timetext;
     public float gametime;
+
+    [Header("Quest")]
+    public Text questLvTxt; //퀘스트 1 레벨 텍스트
+    public Text getGoldTxt; // 얻는 골드 텍스트
+    public Text upgradedTxt; // 업그레이드 텍스트
+    public int questLevel; //퀘스트 1  레벨 변수
+    public float getGold; // 얻는 골드 변수
+    public float upgradedGold; // 업그레이드 골드 변수
+    private int setGold; // 업그레이드하면 받는 골드 증가
+
+
+
+    bool Quest1 = false; // 퀘스트 잠금
+
 
 
     void Awake()
@@ -31,15 +46,106 @@ public class UiManager : MonoBehaviour
 
     void Start()
     {
+        setGold = 20;
+        questLevel = 0;
+        getGold = 10;
+        upgradedGold = 10;
+        upgradedTxt.text = ($"{upgradedGold.ToString()}");
+        getGoldTxt.text = ($"{getGold.ToString()}");
 
 
-
-        goldText.text = GameManager.instance.Gold.ToString();
+        slider.maxValue = gametime;
+        slider.value = gametime;
 
         dungeonCountText.text = ($"첫번째 던전 {GameManager.instance.dungeonCount.ToString()}");
         stageCountText.text = ($"{GameManager.instance.stageCount.ToString()}스테이지   {GameManager.instance.stageMobCount.ToString()}/{ GameManager.instance.allStageMobCount.ToString()}");
 
+        goldText.text = GameManager.instance.Gold.ToString();
     }
+
+
+    void Update()
+    {
+        if (Quest1)
+        {
+            Quest();
+        }
+
+    }
+
+    public void LockQuest_1()
+    {
+
+        if (GameManager.instance.Gold >= 10)
+        {
+
+            if (!Quest1)
+            {
+                questLevel++; // 레벨 올려주고
+                upgradedGold++; // 업그레이드 골드 올려주고
+                GameManager.instance.Gold -= 10; // 잠금 해제 비용 차감
+                lockObjs[0].SetActive(false); // 락 오브젝트 비활성화
+                GoldCount(); // 골드 표시
+                Quest1 = true; // 퀘스트 잠금 해제
+            }
+            else
+            {
+                if (GameManager.instance.Gold >= upgradedGold)
+                {
+                    GameManager.instance.Gold -= (long)upgradedGold; // 업그레이드 비용 만큼 빼주고
+
+                    GoldCount(); // 골드 카운트 한번 해주고
+                    questLevel++; // 퀘스트 레벨 1 올려주고
+                    getGold += setGold; // 받는 골드 얻는 골드만큼 다시 올려줌
+                    upgradedGold += 2; // 업그레이드 골드 변수 증가
+
+
+                }
+            }
+
+        }
+
+    }
+
+    public void Quest()
+    {
+
+        gametime -= Time.deltaTime;
+
+        int hours = Mathf.FloorToInt(gametime / 3600);
+        int minutes = Mathf.FloorToInt(gametime / 60);
+        int seconds = Mathf.FloorToInt(gametime - minutes * 60f);
+
+        string textTime = ($"{hours:D2}:{minutes:D2}:{(int)seconds:D2}");
+
+        Timetext.text = textTime;
+        slider.value = gametime;
+
+        if (gametime < 0)
+        {
+            GameManager.instance.Gold += (long)getGold;
+            GoldCount();
+            gametime = 3;
+        }
+
+        questLvTxt.text = ($"LV.{questLevel.ToString()}");
+        getGoldTxt.text = ($"{getGold.ToString()}");
+        upgradedTxt.text = ($"{upgradedGold.ToString()}");
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void DungeonCount()
     {
@@ -75,28 +181,5 @@ public class UiManager : MonoBehaviour
         buttons[i].interactable = false;
         panels[i].gameObject.SetActive(true);
     }
-
-    void Update()
-    {
-        Quest();
-    }
-
-    public void Quest()
-    {
-        float time = gametime - Time.time;
-        int hours = Mathf.FloorToInt(time / 3600);
-        int minutes = Mathf.FloorToInt(time / 60);
-        int seconds = Mathf.FloorToInt(time - minutes * 60f);
-
-        string textTime = ($"{hours:D2}:{minutes:D2}:{(int)seconds:D2}");
-
-
-
-
-        // 자 시간을 뺄거야 만약에 2초에서 초당 1초씩 까인다면 second가 0보다 작아질 경우
-
-
-    }
-
 
 }
