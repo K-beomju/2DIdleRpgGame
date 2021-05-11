@@ -2,37 +2,133 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using TMPro;
+
 
 
 public class UiManager : MonoBehaviour
 {
+    [Serializable]
+    public struct QuestStruct
+    {
+        [Header("Timer")]
+        public Slider slider;
+        public Text Timetext;
+        public Button button;
+        public float gametime;
+
+        [Header("Quest")]
+        public Text questLvTxt; //퀘스트 1 레벨 텍스트
+        public Text getGoldTxt; // 얻는 골드 텍스트
+        public Text upgradedTxt; // 업그레이드 텍스트
+        public Text upgradedGoldTxt;
+        public int lockQuest; // 잠금 해제 골드
+        public int questLevel; //퀘스트 1  레벨 변수
+        public int setGold; // 업그레이드하면 받는 골드 증가
+        public float upgradedGold; // 업그레이드 골드 변수
+        public float getGold; // 얻는 골드 변수
+        public float onUpGold;
+        private float _gametime;
+        public bool Quest; // 퀘스트 잠금
+        public int lockCount;
+
+        public void Set()
+        {
+            Quest = false;
+            upgradedTxt.text = ($"{upgradedGold.ToString()}");
+            getGoldTxt.text = ($"{getGold.ToString()}");
+            upgradedGoldTxt.text = ($"+{lockQuest.ToString()}");
+            slider.maxValue = gametime;
+            slider.value = gametime;
+            _gametime = gametime;
+        }
+
+        public void LockQuest_1()
+        {
+            if (GameManager.instance.Gold >= lockQuest)
+            {
+
+                if (!Quest)
+                {
+                    questLevel++;
+                    upgradedGold += onUpGold;
+                    GameManager.instance.Gold -= lockQuest;
+                    UiManager.instance.lockObjs[lockCount].SetActive(false);
+                    UiManager.instance.GoldCount();
+                    Quest = true;
+                }
+                else
+                {
+                    if (GameManager.instance.Gold >= upgradedGold)
+                    {
+
+                        GameManager.instance.Gold -= (long)upgradedGold;
+                        UiManager.instance.GoldCount();
+                        questLevel++;
+                        getGold += setGold;
+                        upgradedGold += onUpGold;
+
+                    }
+
+
+                }
+
+            }
+
+        }
+
+
+        public void QuestGo()
+        {
+
+
+            gametime -= Time.deltaTime;
+
+            int hours = Mathf.FloorToInt(gametime / 3600);
+            int minutes = Mathf.FloorToInt(gametime / 60);
+            int seconds = Mathf.FloorToInt(gametime - minutes * 60f);
+
+            string textTime = ($"{hours:D2}:{minutes:D2}:{(int)seconds:D2}");
+
+            Timetext.text = textTime;
+            slider.value = gametime;
+
+            if (gametime < 0)
+            {
+                GameManager.instance.Gold += (long)getGold;
+                UiManager.instance.GoldCount();
+                gametime = _gametime;
+            }
+
+            if (GameManager.instance.Gold < upgradedGold)
+            {
+                button.interactable = false;
+            }
+            else
+            {
+                button.interactable = true;
+            }
+
+            questLvTxt.text = ($"LV.{questLevel.ToString()}");
+            getGoldTxt.text = ($"{getGold.ToString()}");
+            upgradedTxt.text = ($"{upgradedGold.ToString()}");
+        }
+    }
+    public QuestStruct[] questStructs;
+
+
+
+
     public static UiManager instance;
+    [Space(45)]
 
     public Text goldText;
     public Text dungeonCountText;
-    public Text stageCountText;
+    public Text stageCountText;[Space(45)]
     public Button[] buttons;
     public GameObject[] panels;
     public GameObject[] lockObjs;
-
-
-    [Header("Timer")]
-    public Slider slider;
-    public Text Timetext;
-    public float gametime;
-
-    [Header("Quest")]
-    public Text questLvTxt; //퀘스트 1 레벨 텍스트
-    public Text getGoldTxt; // 얻는 골드 텍스트
-    public Text upgradedTxt; // 업그레이드 텍스트
-    public int questLevel; //퀘스트 1  레벨 변수
-    public float getGold; // 얻는 골드 변수
-    public float upgradedGold; // 업그레이드 골드 변수
-    private int setGold; // 업그레이드하면 받는 골드 증가
-
-
-
-    bool Quest1 = false; // 퀘스트 잠금
 
 
 
@@ -42,97 +138,40 @@ public class UiManager : MonoBehaviour
         {
             instance = this;
         }
+        for (int i = 0; i < questStructs.Length; i++)
+        {
+
+            questStructs[i].Set();
+        }
     }
 
     void Start()
     {
-        setGold = 20;
-        questLevel = 0;
-        getGold = 10;
-        upgradedGold = 10;
-        upgradedTxt.text = ($"{upgradedGold.ToString()}");
-        getGoldTxt.text = ($"{getGold.ToString()}");
-
-
-        slider.maxValue = gametime;
-        slider.value = gametime;
-
         dungeonCountText.text = ($"첫번째 던전 {GameManager.instance.dungeonCount.ToString()}");
         stageCountText.text = ($"{GameManager.instance.stageCount.ToString()}스테이지   {GameManager.instance.stageMobCount.ToString()}/{ GameManager.instance.allStageMobCount.ToString()}");
-
         goldText.text = GameManager.instance.Gold.ToString();
     }
 
 
     void Update()
     {
-        if (Quest1)
+        for (int i = 0; i < questStructs.Length; i++)
         {
-            Quest();
-        }
-
-    }
-
-    public void LockQuest_1()
-    {
-
-        if (GameManager.instance.Gold >= 10)
-        {
-
-            if (!Quest1)
+            if (questStructs[i].Quest)
             {
-                questLevel++; // 레벨 올려주고
-                upgradedGold++; // 업그레이드 골드 올려주고
-                GameManager.instance.Gold -= 10; // 잠금 해제 비용 차감
-                lockObjs[0].SetActive(false); // 락 오브젝트 비활성화
-                GoldCount(); // 골드 표시
-                Quest1 = true; // 퀘스트 잠금 해제
+                questStructs[i].QuestGo();
             }
-            else
-            {
-                if (GameManager.instance.Gold >= upgradedGold)
-                {
-                    GameManager.instance.Gold -= (long)upgradedGold; // 업그레이드 비용 만큼 빼주고
-
-                    GoldCount(); // 골드 카운트 한번 해주고
-                    questLevel++; // 퀘스트 레벨 1 올려주고
-                    getGold += setGold; // 받는 골드 얻는 골드만큼 다시 올려줌
-                    upgradedGold += 2; // 업그레이드 골드 변수 증가
-
-
-                }
-            }
-
         }
 
     }
-
-    public void Quest()
+    public void LockQuest(int i)
     {
-
-        gametime -= Time.deltaTime;
-
-        int hours = Mathf.FloorToInt(gametime / 3600);
-        int minutes = Mathf.FloorToInt(gametime / 60);
-        int seconds = Mathf.FloorToInt(gametime - minutes * 60f);
-
-        string textTime = ($"{hours:D2}:{minutes:D2}:{(int)seconds:D2}");
-
-        Timetext.text = textTime;
-        slider.value = gametime;
-
-        if (gametime < 0)
-        {
-            GameManager.instance.Gold += (long)getGold;
-            GoldCount();
-            gametime = 3;
-        }
-
-        questLvTxt.text = ($"LV.{questLevel.ToString()}");
-        getGoldTxt.text = ($"{getGold.ToString()}");
-        upgradedTxt.text = ($"{upgradedGold.ToString()}");
-
+        questStructs[i].LockQuest_1();
     }
+
+
+
+
 
 
 
@@ -171,6 +210,7 @@ public class UiManager : MonoBehaviour
         goldText.text = GameManager.instance.Gold.ToString();
     }
 
+
     public void MainButton(int i)
     {
         for (int temp = 0; temp < buttons.Length; temp++)
@@ -181,5 +221,4 @@ public class UiManager : MonoBehaviour
         buttons[i].interactable = false;
         panels[i].gameObject.SetActive(true);
     }
-
 }

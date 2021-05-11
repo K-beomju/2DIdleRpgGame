@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf2ddf1041a1aa47aa9c75bc6f85ce9, type: 3}
+  m_Name: Quest2
+  m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  Timetext: {fileID: 0}
+  gametime: 0
+  questLvTxt: {fileID: 0}
+  getGoldTxt: {fileID: 0}
+  upgradedTxt: {fileID: 0}
+  questLevel: 0
+  getGold: 0
+  upgradedGold: 0

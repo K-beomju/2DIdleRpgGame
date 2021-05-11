@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
     public int stageMobCount; // {0}
     public int allStageMobCount; // {1}
     public bool isFadeInOut; // 페이드 아웃
+
+    [SerializeField]
     private long gold;
     public long Gold { get { return gold; } set { gold = value; } }
 
@@ -100,7 +102,7 @@ public class GameManager : MonoBehaviour
         destinatinon = 1;
         allStageMobCount = 10;
         attackCriticalDamage = 1.5f;
-        Gold = 20;
+      //  Gold = 10000;
     }
 
 
