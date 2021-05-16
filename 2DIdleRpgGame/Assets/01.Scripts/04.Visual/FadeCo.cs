@@ -30,6 +30,7 @@ public class FadeCo : MonoBehaviour
     StringBuilder sb;
 
     public SpawnManager spawn;
+    public GameObject hPBar;
 
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class FadeCo : MonoBehaviour
     {
         if (GameManager.instance.isFadeInOut && fadeState == eFadeState.None)
         {
+            hPBar.SetActive(false);
             spawn.enabled = false;
             fadeState = eFadeState.None;
             NextState();
@@ -85,7 +87,7 @@ public class FadeCo : MonoBehaviour
                     fadeState = eFadeState.ChangeBg;
                     GameManager.instance.isFadeInOut = false;
                     spawn.enabled = true;
-
+                   hPBar.SetActive(true);
                     timer = 0;
 
                 }
@@ -95,7 +97,6 @@ public class FadeCo : MonoBehaviour
             imgBg.color = new Color(imgBg.color.r, imgBg.color.g, imgBg.color.b, alpha);
             yield return null;
         }
-
         NextState();
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Numerics;
 using TMPro;
 
 
@@ -26,19 +27,19 @@ public class UiManager : MonoBehaviour
         public int lockQuest; // 잠금 해제 골드
         public int questLevel; //퀘스트 1  레벨 변수
         public int setGold; // 업그레이드하면 받는 골드 증가
+        public int lockCount; // 퀘스트 잠금 obj
         public float upgradedGold; // 업그레이드 골드 변수
         public float getGold; // 얻는 골드 변수
-        public float onUpGold;
         private float _gametime;
+        public float onUpGold;
         public bool Quest; // 퀘스트 잠금
-        public int lockCount;
 
         public void Set()
         {
             Quest = false;
-            upgradedTxt.text = ($"{upgradedGold.ToString()}");
-            getGoldTxt.text = ($"{getGold.ToString()}");
-            upgradedGoldTxt.text = ($"+{lockQuest.ToString()}");
+            UiManager.instance.GoldCount( upgradedTxt, (BigInteger)upgradedGold);
+            UiManager.instance.GoldCount(getGoldTxt, (BigInteger)getGold);
+            UiManager.instance.GoldCount(upgradedGoldTxt, (BigInteger)lockQuest);
             slider.maxValue = gametime;
             slider.value = gametime;
             _gametime = gametime;
@@ -46,28 +47,29 @@ public class UiManager : MonoBehaviour
 
         public void LockQuest_1()
         {
-            if (GameManager.instance.Gold >= lockQuest)
+            if (GameManager.instance.gold >= (BigInteger)upgradedGold)
             {
 
                 if (!Quest)
                 {
+                    GameManager.instance.gold -= (BigInteger)upgradedGold;
                     questLevel++;
                     upgradedGold += onUpGold;
-                    GameManager.instance.Gold -= lockQuest;
+                    UiManager.instance.GoldCount(UiManager.instance.goldText, GameManager.instance.gold);
                     UiManager.instance.lockObjs[lockCount].SetActive(false);
-                    UiManager.instance.GoldCount();
                     Quest = true;
                 }
                 else
                 {
-                    if (GameManager.instance.Gold >= upgradedGold)
+                    if (GameManager.instance.gold >= (BigInteger)upgradedGold)
                     {
 
-                        GameManager.instance.Gold -= (long)upgradedGold;
-                        UiManager.instance.GoldCount();
+                        GameManager.instance.gold -= (long)upgradedGold;
+                        UiManager.instance.GoldCount(UiManager.instance.goldText, GameManager.instance.gold);
                         questLevel++;
                         getGold += setGold;
-                        upgradedGold += onUpGold;
+
+                        upgradedGold += onUpGold + Mathf.Round(onUpGold * 1.2f);
 
                     }
 
@@ -96,12 +98,12 @@ public class UiManager : MonoBehaviour
 
             if (gametime < 0)
             {
-                GameManager.instance.Gold += (long)getGold;
-                UiManager.instance.GoldCount();
+                GameManager.instance.gold += (long)getGold;
+                UiManager.instance.GoldCount(UiManager.instance.goldText, GameManager.instance.gold);
                 gametime = _gametime;
             }
 
-            if (GameManager.instance.Gold < upgradedGold)
+            if (GameManager.instance.gold < (BigInteger)upgradedGold)
             {
                 button.interactable = false;
             }
@@ -111,8 +113,8 @@ public class UiManager : MonoBehaviour
             }
 
             questLvTxt.text = ($"LV.{questLevel.ToString()}");
-            getGoldTxt.text = ($"{getGold.ToString()}");
-            upgradedTxt.text = ($"{upgradedGold.ToString()}");
+            UiManager.instance.GoldCount(getGoldTxt, (BigInteger)getGold);
+            UiManager.instance.GoldCount(upgradedTxt, (BigInteger)upgradedGold);
         }
     }
     public QuestStruct[] questStructs;
@@ -149,7 +151,7 @@ public class UiManager : MonoBehaviour
     {
         dungeonCountText.text = ($"첫번째 던전 {GameManager.instance.dungeonCount.ToString()}");
         stageCountText.text = ($"{GameManager.instance.stageCount.ToString()}스테이지   {GameManager.instance.stageMobCount.ToString()}/{ GameManager.instance.allStageMobCount.ToString()}");
-        goldText.text = GameManager.instance.Gold.ToString();
+        GoldCount(goldText, GameManager.instance.gold);
     }
 
 
@@ -170,20 +172,56 @@ public class UiManager : MonoBehaviour
     }
 
 
+    public void GoldCount(Text valueText , BigInteger value)
+    {
+
+        valueText.text = ChangeMoney(value.ToString());
+    }
+
+    public void Gold()
+    {
+        GameManager.instance.gold += 34332;
+        GoldCount(goldText, GameManager.instance.gold);
+    }
 
 
+    string ChangeMoney(string haveGold)
+    {
+        string[] unit = new string[] { "", "A", "B", "C", "D", "E", "F", "G", "H", "I" };
+        int[] currentValue = new int[10];
+
+        int index = 0;
+
+        while (true)
+        {
+            string last4 = "";
+            if (haveGold.Length >= 4)
+            {
+                last4 = haveGold.Substring(haveGold.Length - 4);
+                int intLast4 = int.Parse(last4);
+
+                currentValue[index] = intLast4 % 1000;
+
+                haveGold = haveGold.Remove(haveGold.Length - 3);
+            }
+            else
+            {
+                currentValue[index] = int.Parse(haveGold);
+                break;
+            }
+
+            index++;
+        }
 
 
+        if (index > 0)
+        {
+            int r = currentValue[index] * 1000 + currentValue[index - 1];
+            return string.Format("{0:#.#}{1}", (float)r / 1000f, unit[index]);
+        }
 
-
-
-
-
-
-
-
-
-
+        return haveGold;
+    }
 
 
     public void DungeonCount()
@@ -205,10 +243,7 @@ public class UiManager : MonoBehaviour
         stageCountText.text = ($"{GameManager.instance.stageCount.ToString()}스테이지   {GameManager.instance.stageMobCount.ToString()}/{ GameManager.instance.allStageMobCount.ToString()}");
     }
 
-    public void GoldCount()
-    {
-        goldText.text = GameManager.instance.Gold.ToString();
-    }
+
 
 
     public void MainButton(int i)
@@ -221,4 +256,8 @@ public class UiManager : MonoBehaviour
         buttons[i].interactable = false;
         panels[i].gameObject.SetActive(true);
     }
+
+
+
+
 }

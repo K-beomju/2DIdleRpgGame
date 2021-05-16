@@ -93,8 +93,8 @@ public class EnemyHealth : LivingEntity
     protected override void Die()
     {
         // Gold , UI
-        GameManager.instance.Gold += GameManager.instance.enemyGold;
-        UiManager.instance.GoldCount();
+        GameManager.instance.gold += GameManager.instance.enemyGold;
+        UiManager.instance.GoldCount(UiManager.instance.goldText, GameManager.instance.gold);
         UiManager.instance.StageCount();
         // GoldTxt , DropGold
         UpGoldText();
@@ -146,7 +146,7 @@ public class EnemyHealth : LivingEntity
     private void OnHitEffect()
     {
         hitEffect = GameManager.GetHitEffect();
-        hitEffect.SetPositionData(transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360f)));
+        hitEffect.SetPositionData(new Vector2(Random.Range(-0.1f , 0.3f), transform.position.y), Quaternion.Euler(0, 0, Random.Range(0, 360f)));
     }
 
     private IEnumerator cAlpha()

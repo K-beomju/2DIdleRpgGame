@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Numerics;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,9 +48,11 @@ public class GameManager : MonoBehaviour
     public int allStageMobCount; // {1}
     public bool isFadeInOut; // 페이드 아웃
 
-    [SerializeField]
-    private long gold;
-    public long Gold { get { return gold; } set { gold = value; } }
+    // [SerializeField]
+    // private long gold;
+    // public long Gold { get { return gold; } set { gold = value; } }
+
+    public BigInteger gold;
 
 
 
@@ -102,7 +105,7 @@ public class GameManager : MonoBehaviour
         destinatinon = 1;
         allStageMobCount = 10;
         attackCriticalDamage = 1.5f;
-      //  Gold = 10000;
+        gold = 0;
     }
 
 
