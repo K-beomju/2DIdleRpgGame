@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public RectTransform canvas;
+    public Button[] etImage;
     public Transform goldTxt;
 
     [Header("Pooling Objs")]
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject textObj;
     public GameObject dropGold;
     public GameObject textGold;
+    public GameObject questEffect;
 
 
 
@@ -73,13 +75,14 @@ public class GameManager : MonoBehaviour
     public BackGround back;
     public float backSpeed;
 
-
+    [Header("Dungeon")]
 
     private ObjectPooling<EnemyHPBar> barPool;
     private ObjectPooling<DamageText> dmgPool;
     private ObjectPooling<DropGold> dropPool;
     private ObjectPooling<GoldText> goldPool;
     private ObjectPooling<SkillObject> hitPool;
+    private ObjectPooling<SkillObject>[] uEtPool;
 
 
 
@@ -94,6 +97,11 @@ public class GameManager : MonoBehaviour
         dmgPool = new ObjectPooling<DamageText>(textObj, this.transform, 10);
         dropPool = new ObjectPooling<DropGold>(dropGold, this.transform, 8);
         goldPool = new ObjectPooling<GoldText>(textGold, this.transform, 8);
+        uEtPool = new ObjectPooling<SkillObject>[etImage.Length];
+        for (int i = 0; i < etImage.Length; i++)
+        {
+         uEtPool[i] = new ObjectPooling<SkillObject>(questEffect, this.etImage[i].transform, 3 );
+        }
 
         isSpawn = true;
         isBoss = false;
@@ -105,7 +113,7 @@ public class GameManager : MonoBehaviour
         destinatinon = 1;
         allStageMobCount = 10;
         attackCriticalDamage = 1.5f;
-        gold = 0;
+        gold = 1000000;
     }
 
 
@@ -139,11 +147,18 @@ public class GameManager : MonoBehaviour
         return instance.hitPool.GetOrCreate();
     }
 
+    public static SkillObject GetQsEffect(int i)
+    {
+        return instance.uEtPool[i].GetOrCreate();
+    }
+
 
     public static void CamShake(float intense, float during)
     {
         instance.camEffect.SetShake(intense, during);
     }
+
+
 
 
 

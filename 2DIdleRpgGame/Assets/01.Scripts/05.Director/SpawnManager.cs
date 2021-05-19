@@ -10,7 +10,7 @@ public class SpawnManager : MonoBehaviour
     private ObjectPooling<EnemyHealth>[] enemyPool;
     private EnemyHealth enemy;
     public GameObject[] enemyGroup;
-    public GameObject spawnPosition;
+    public Transform spawnPosition;
 
 
 
@@ -49,7 +49,7 @@ public class SpawnManager : MonoBehaviour
 
         GameManager.instance.isSpawn = false;
         enemy = enemyPool[GameManager.instance.curEnemyIndex].GetOrCreate();
-        enemy.transform.position = spawnPosition.transform.position;
+        enemy.transform.position = spawnPosition.position;
         GameManager.instance.destinatinon = enemy.transform.position.y + 0.7f;
         GameManager.instance.enemyMaxHealth = GameManager.instance.enemyHealth;
 
@@ -71,7 +71,7 @@ public class SpawnManager : MonoBehaviour
         GameManager.instance.isBoss = true;
         GameManager.instance.isSpawn = false;
         enemy = enemyPool[Random.Range(0, enemyGroup.Length - 1)].GetOrCreate();
-        enemy.transform.position = spawnPosition.transform.position;
+        enemy.transform.position = spawnPosition.position;
         GameManager.instance.destinatinon = enemy.transform.position.y + 0.7f;
         enemy.transform.localScale *= GameManager.instance.enemyBossSize;
         GameManager.instance.enemyHealth = GameManager.instance.EnemyBossHealth;

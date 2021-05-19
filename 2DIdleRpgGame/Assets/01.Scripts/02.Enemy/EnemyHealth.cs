@@ -48,6 +48,11 @@ public class EnemyHealth : LivingEntity
 
         }
 
+    }
+
+    void OnDisable()
+    {
+        gameObject.transform.position = UiManager.instance.spawnPosition.position;
 
     }
 
@@ -102,6 +107,7 @@ public class EnemyHealth : LivingEntity
         // false
         hpBar.gameObject.SetActive(false);
         gameObject.SetActive(false);
+
         // 초기화
         GameManager.instance.isSpawn = true;
         GameManager.instance.enemyHealth = GameManager.instance.enemyMaxHealth;

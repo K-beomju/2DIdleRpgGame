@@ -30,7 +30,6 @@ public class FadeCo : MonoBehaviour
     StringBuilder sb;
 
     public SpawnManager spawn;
-    public GameObject hPBar;
 
     private void Awake()
     {
@@ -43,11 +42,10 @@ public class FadeCo : MonoBehaviour
     }
     void Update()
     {
-        if (GameManager.instance.isFadeInOut && fadeState == eFadeState.None)
+        if (GameManager.instance.isFadeInOut)
         {
-            hPBar.SetActive(false);
             spawn.enabled = false;
-            fadeState = eFadeState.None;
+
             NextState();
         }
     }
@@ -66,9 +64,6 @@ public class FadeCo : MonoBehaviour
     IEnumerator FadeOutState()
     {
         float alpha = 0;
-
-
-
         while (fadeState == eFadeState.FadeOut)
         {
             timer += Time.deltaTime;
@@ -86,9 +81,8 @@ public class FadeCo : MonoBehaviour
                 {
                     fadeState = eFadeState.ChangeBg;
                     GameManager.instance.isFadeInOut = false;
-                    spawn.enabled = true;
-                   hPBar.SetActive(true);
                     timer = 0;
+                    spawn.enabled = true;
 
                 }
             }
