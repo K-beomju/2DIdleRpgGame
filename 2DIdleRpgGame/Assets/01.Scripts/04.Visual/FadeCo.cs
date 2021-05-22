@@ -42,7 +42,7 @@ public class FadeCo : MonoBehaviour
     }
     void Update()
     {
-        if (GameManager.instance.isFadeInOut)
+        if (GameManager.instance.isFadeInOut && fadeState == eFadeState.None)
         {
             spawn.enabled = false;
 

@@ -65,14 +65,14 @@ public class Player : MonoBehaviour
     public void Attack()
     {
         int critiRan = Random.Range(0, 101);
-        GameManager.CamShake(0.8f, 0.2f);
+        GameManager.CamShake(0.3f, 0.2f);
         Collider2D[] hitEnemis = Physics2D.OverlapCircleAll(transform.position, GameManager.instance.attackRange, enemyLayers);
         foreach (Collider2D enemy in hitEnemis)
         {
             IDamageable target = enemy.transform.GetComponent<IDamageable>();
             if (target != null)
             {
-                if (critiRan <= 30)
+                if (critiRan <= GameManager.instance.critical)
                 {
                     GameManager.instance.isCritical = true;
                     target.OnDamage(GameManager.instance.attackDamage * GameManager.instance.attackCriticalDamage);

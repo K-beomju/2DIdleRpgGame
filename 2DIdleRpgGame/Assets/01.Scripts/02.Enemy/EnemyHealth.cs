@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEditor;
 using TMPro;
 
-
 public class EnemyHealth : LivingEntity
 {
 
@@ -52,7 +51,7 @@ public class EnemyHealth : LivingEntity
 
     void OnDisable()
     {
-        gameObject.transform.position = UiManager.instance.spawnPosition.position;
+        gameObject.transform.position = GameManager.instance.spawnPosition.position;
 
     }
 
@@ -100,6 +99,7 @@ public class EnemyHealth : LivingEntity
         // Gold , UI
         GameManager.instance.gold += GameManager.instance.enemyGold;
         UiManager.instance.GoldCount(UiManager.instance.goldText, GameManager.instance.gold);
+        UiManager.instance.ButtonIt(GameManager.instance.Up1ChLevel , UiManager.instance.ch1LevelBt);
         UiManager.instance.StageCount();
         // GoldTxt , DropGold
         UpGoldText();
@@ -133,7 +133,6 @@ public class EnemyHealth : LivingEntity
             dropgold = GameManager.GetDropGold();
             dropgold.transform.position = this.transform.position;
         }
-
     }
 
     private void UpGoldText()
@@ -156,7 +155,6 @@ public class EnemyHealth : LivingEntity
     }
 
     private IEnumerator cAlpha()
-
     {
         sr.color = new Color(1, 175 / 255f, 175 / 255f, 1);
         yield return new WaitForSeconds(0.3f);

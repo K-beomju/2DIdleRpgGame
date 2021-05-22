@@ -30,12 +30,12 @@ public class GoldText : MonoBehaviour
         if(gameObject.activeSelf)
         {
            StartCoroutine(SetDeactive());
-           alpha -= Time.deltaTime * 2f;
         }
     }
 
     private IEnumerator SetDeactive()
     {
+        alpha -= Time.deltaTime * 2f;
         text.color = new Color(251, 255, 0, alpha);
         yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);

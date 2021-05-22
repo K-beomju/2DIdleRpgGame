@@ -7,6 +7,9 @@ using System.Numerics;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public delegate void UpChLevelStatus(float value);
+    public UpChLevelStatus Ucls;
+
 
     public RectTransform canvas;
     public Button[] etImage;
@@ -20,15 +23,14 @@ public class GameManager : MonoBehaviour
     public GameObject textGold;
     public GameObject questEffect;
 
-
-
-
     [Header("Player")] [Space(20)]
     public float attackDamage;
     public float attackCriticalDamage;
-    public float attackRange;
     public float attackSpeed;
+    public float attackRange;
     public float attackDelay;
+    public float critical; // 크리티컬
+    public int chLevel; // 캐릭터 레벨
     public bool isCritical;
 
 
@@ -50,10 +52,10 @@ public class GameManager : MonoBehaviour
     public int allStageMobCount; // {1}
     public bool isFadeInOut; // 페이드 아웃
 
+
     // [SerializeField]
     // private long gold;
-    // public long Gold { get { return gold; } set { gold = value; } }
-
+    // public long Gold { get { return gold; } set { gold = value; } } // 보류
     public BigInteger gold;
 
 
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
     public int curEnemyIndex = 0;
     public bool isSpawn;
     public bool isBoss = false;
-
+    public Transform spawnPosition; // 스폰 포인트
 
 
     [Header("Text")]  [Space(20)]
@@ -75,7 +77,16 @@ public class GameManager : MonoBehaviour
     public BackGround back;
     public float backSpeed;
 
-    [Header("Dungeon")]
+    //Status
+    private float up1ChLevel;
+    public float Up1ChLevel { get { return up1ChLevel; } set { up1ChLevel = value; } }
+
+    private float up10ChLevel;
+    public float Up10ChLevel { get { return up10ChLevel; } set { up10ChLevel = value; } }
+
+    private float up100ChLevel;
+    public float Up100ChLevel { get { return up100ChLevel; } set { up100ChLevel = value; } }
+
 
     private ObjectPooling<EnemyHPBar> barPool;
     private ObjectPooling<DamageText> dmgPool;
@@ -83,7 +94,6 @@ public class GameManager : MonoBehaviour
     private ObjectPooling<GoldText> goldPool;
     private ObjectPooling<SkillObject> hitPool;
     private ObjectPooling<SkillObject>[] uEtPool;
-
 
 
 
@@ -113,8 +123,29 @@ public class GameManager : MonoBehaviour
         destinatinon = 1;
         allStageMobCount = 10;
         attackCriticalDamage = 1.5f;
-        gold = 1000000;
+        critical = 1;
+        chLevel = 1;
+        gold = 1000;
+        up1ChLevel = 524;
+
+        Ucls += UpSetStatus;
+        Ucls(up1ChLevel);
     }
+
+    public void UpSetStatus(float value)
+    {
+        up10ChLevel = 0;
+        up100ChLevel = 0;
+        for (int i = 0; i <= 9; i++)
+        {
+            up10ChLevel += value + 26*i;
+        }
+        for (int i = 0; i <= 99; i++)
+        {
+            up100ChLevel += value + 26*i;
+        }
+    }
+
 
 
     public static void SetBackgroundSpeed(float speed)

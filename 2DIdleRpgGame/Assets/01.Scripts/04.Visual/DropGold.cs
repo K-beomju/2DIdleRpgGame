@@ -25,9 +25,7 @@ public class DropGold : MonoBehaviour
     {
         if (gameObject.activeSelf)
         {
-            alpha -= Time.deltaTime * 1.5f;
             StartCoroutine(SetDeactive());
-
         }
     }
 
@@ -40,6 +38,7 @@ public class DropGold : MonoBehaviour
     }
     private IEnumerator SetDeactive()
     {
+         alpha -= Time.deltaTime * 1.5f;
         sr.color = new Color(1, 1, 1, alpha);
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
