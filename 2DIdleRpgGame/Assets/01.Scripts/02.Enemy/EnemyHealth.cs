@@ -99,7 +99,7 @@ public class EnemyHealth : LivingEntity
         // Gold , UI
         GameManager.instance.gold += GameManager.instance.enemyGold;
         UiManager.instance.GoldCount(UiManager.instance.goldText, GameManager.instance.gold);
-        UiManager.instance.ButtonIt(GameManager.instance.Up1ChLevel , UiManager.instance.ch1LevelBt);
+         UiManager.instance.ActivationCheck();
         UiManager.instance.StageCount();
         // GoldTxt , DropGold
         UpGoldText();

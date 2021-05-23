@@ -74,8 +74,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Etc")]  [Space(20)]
     public CameraEffect camEffect;
-    public BackGround back;
-    public float backSpeed;
+    [SerializeField]
+    private BackGround back;
 
     //Status
     private float up1ChLevel;
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
         attackCriticalDamage = 1.5f;
         critical = 1;
         chLevel = 1;
-        gold = 12312;
+        gold = 100000;
         up1ChLevel = 524;
 
         Ucls += UpSetStatus;
