@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
         attackCriticalDamage = 1.5f;
         critical = 1;
         chLevel = 1;
-        gold = 1000;
+        gold = 12312;
         up1ChLevel = 524;
 
         Ucls += UpSetStatus;

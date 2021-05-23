@@ -59,14 +59,17 @@ public class UiManager : MonoBehaviour
         {
             if (GameManager.instance.gold >= (BigInteger)upgradedGold && questLevel < 999)
             {
-                upgradedGold *= 1.12f;
+
                 questLevel++;
 
                 if (!Quest)
                 {
+
                     GameManager.instance.gold -= (BigInteger)upgradedGold;
                     lockObjs.SetActive(false);
                     Quest = true;
+
+
                 }
                 else
                 {
@@ -74,13 +77,11 @@ public class UiManager : MonoBehaviour
                     {
                         GameManager.instance.gold -= (long)upgradedGold;
                         getGold += Mathf.Round(_getGold / 2);
-
-
-
                     }
 
 
                 }
+                 upgradedGold *= 1.12f;
                 UiManager.instance.GoldCount(UiManager.instance.goldText, GameManager.instance.gold);
             }
 
@@ -108,11 +109,12 @@ public class UiManager : MonoBehaviour
                 UiManager.instance.GoldCount(UiManager.instance.goldText, GameManager.instance.gold);
                 gametime = _gametime;
                 UiManager.instance.ButtonIt(GameManager.instance.Up1ChLevel , UiManager.instance.ch1LevelBt);
+
             }
 
 
 
-            UiManager.instance.ButtonIt(upgradedGold, button);
+
 
             questLvTxt.text = ($"LV.{questLevel.ToString()}");
             UiManager.instance.GoldCount(getGoldTxt, (BigInteger)getGold);
@@ -137,7 +139,7 @@ public class UiManager : MonoBehaviour
     public Button[] buttons; // 캐릭터 , 펫 , 스킬 , 퀘스트 , 던전 , 상점 바꿔주는 버튼 , 패너
     public GameObject[] panels;
 
-    private SkillObject effectQs;
+    private SkillObject effectQs; // 퀘스트 렙업 이펙트
 
 
     [Header("Dungeon")] // 던전 진행도
@@ -152,8 +154,8 @@ public class UiManager : MonoBehaviour
     public Text moveSpTxt;
     public Text levelTxt;
 
-    [Space(30)]
-    [Header("UpgradeStatus")] // 능력치 업그레이드
+
+    [Header("UpgradeStatus") ,Space(30)]   // 능력치 업그레이드
     public Text ch1LevelTxt;
     public Text  ch10LevelTxt;
     public Text  ch100LevelTxt;
@@ -164,6 +166,13 @@ public class UiManager : MonoBehaviour
 
 
 
+     [Header("아재 개그"),Space(30)]
+    public TextAsset text;
+    public Text txsayAnyth;
+    char separatorChar = '\n';
+    public string[] m_text;
+
+
 
     void Awake()
     {
@@ -171,21 +180,26 @@ public class UiManager : MonoBehaviour
         {
             instance = this;
         }
-        for (int i = 0; i < questStructs.Length; i++)
-        {
-            questStructs[i].Set();
-        }
+         m_text = text.text.Split(separatorChar);
     }
 
     void Start()
     {
+        StartCoroutine(TxAnyth(0));
         SetStage();
         SetDungeon();
         SetStatus();
-        CgB += ButtonIt;
-        CgB(GameManager.instance.Up1ChLevel, ch1LevelBt);
-        CgB(GameManager.instance.Up10ChLevel, ch10LevelBt);
-        CgB(GameManager.instance.Up100ChLevel, ch100LevelBt);
+
+        ch1LevelBt.onClick.AddListener(() => upGradeLevel(GameManager.instance.Up1ChLevel , 1 ));
+        ch10LevelBt.onClick.AddListener(() => upGradeLevel(GameManager.instance.Up10ChLevel, 10 ));
+        ch100LevelBt.onClick.AddListener(() => upGradeLevel(GameManager.instance.Up100ChLevel, 100));
+
+         for (int i = 0; i < questStructs.Length; i++)
+        {
+            questStructs[i].Set();
+
+        }
+
     }
 
     void SetStage()
@@ -217,10 +231,33 @@ public class UiManager : MonoBehaviour
         UiManager.instance.GoldCount(ch1LevelTxt, (BigInteger)GameManager.instance.Up1ChLevel);
         UiManager.instance.GoldCount(ch10LevelTxt, (BigInteger)GameManager.instance.Up10ChLevel);
         UiManager.instance.GoldCount(ch100LevelTxt, (BigInteger)GameManager.instance.Up100ChLevel);
+
+        CgB += ButtonIt;
+        ActivationCheck();
+    }
+
+    void ActivationCheck()
+    {
+        CgB(GameManager.instance.Up1ChLevel, ch1LevelBt);
+        CgB(GameManager.instance.Up10ChLevel, ch10LevelBt);
+        CgB(GameManager.instance.Up100ChLevel, ch100LevelBt);
     }
 
 
-
+    private IEnumerator TxAnyth(int i)
+    {
+        txsayAnyth.text = m_text[i];
+        yield return new WaitForSeconds(2f);
+         if (i >= m_text.Length - 1)
+        {
+            i = 0;
+        }
+        else
+        {
+            i++;
+        }
+        StartCoroutine(TxAnyth(i));
+    }
 
 
 
@@ -231,7 +268,9 @@ public class UiManager : MonoBehaviour
             if (questStructs[i].Quest)
             {
                 questStructs[i].QuestGo();
+
             }
+              ButtonIt(questStructs[i].upgradedGold,questStructs[i].button);
         }
     }
     public void LockQuest(int i)
@@ -326,24 +365,26 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void upGradeLevel() // 전부 바꿀 예정
+    public void upGradeLevel(float value , float upLevel)
     {
 
-        if(GameManager.instance.gold >= (BigInteger)GameManager.instance.Up1ChLevel)
+        if(GameManager.instance.gold >= (BigInteger)value)
         {
-            GameManager.instance.chLevel++;
-            GameManager.instance.attackDamage += 12f;
-            GameManager.instance.gold -= (BigInteger)GameManager.instance.Up1ChLevel;
-            GameManager.instance.Up1ChLevel += 26f;
+            GameManager.instance.chLevel += 1 * (int)upLevel;
+            GameManager.instance.attackDamage += 12 * upLevel;
+            GameManager.instance.gold -= (BigInteger)value;
+            GameManager.instance.Up1ChLevel += 26 * upLevel;
 
             GameManager.instance.Ucls(GameManager.instance.Up1ChLevel);
             SetStatus();
-          CgB(GameManager.instance.Up1ChLevel, ch1LevelBt);
-          CgB(GameManager.instance.Up10ChLevel, ch10LevelBt);
-          CgB(GameManager.instance.Up100ChLevel, ch100LevelBt);
+            ActivationCheck();
+
         }
         GoldCount(goldText, GameManager.instance.gold);
     }
+
+
+
 
        public void ButtonIt(float value, Button valueButton)
     {
