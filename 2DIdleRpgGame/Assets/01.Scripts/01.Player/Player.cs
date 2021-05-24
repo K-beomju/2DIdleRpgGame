@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
             GameManager.instance.enemyMoveSpeed = GameManager.instance._enemyMoveSpeed;
             animator.SetBool("isAttack", false);
             playerAudioSource.Stop();
-            GameManager.SetBackgroundSpeed(0.2f);
+            GameManager.SetBackgroundSpeed(0.5f);
         }
     }
 

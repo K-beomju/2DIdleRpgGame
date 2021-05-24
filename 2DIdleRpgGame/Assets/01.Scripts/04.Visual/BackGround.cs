@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class BackGround : MonoBehaviour
 {
-    private new Renderer renderer;
+    private  Renderer renderers;
     public float offset;
+    private float speed;
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+        renderers = GetComponent<Renderer>();
     }
 
-    public void SetSpeed(float speed){
-      speed = GameManager.instance.backSpeed;
-        GameManager.instance.backSpeed = speed;
+   public void SetSpeed(float speed){
+        this.speed = speed;
     }
 
     void Update()
     {
-        offset += Time.deltaTime * GameManager.instance.backSpeed;
-        renderer.material.SetTextureOffset("_MainTex", new Vector2(offset,0));
+        offset += Time.deltaTime * speed;
+        renderers.material.SetTextureOffset("_MainTex", new Vector2(offset,0));
     }
 
 
