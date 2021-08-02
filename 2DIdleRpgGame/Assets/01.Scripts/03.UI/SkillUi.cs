@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+
 public class SkillUi : MonoBehaviour
 {
     public Image skillImage;

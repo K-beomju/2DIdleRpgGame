@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
         attackCriticalDamage = 1.5f;
         critical = 1;
         chLevel = 1;
-        gold = 100000;
+        gold = 10;
         up1ChLevel = 524;
 
         Ucls += UpSetStatus;
@@ -184,10 +184,10 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public static void CamShake(float intense, float during)
-    {
-        instance.camEffect.SetShake(intense, during);
-    }
+    // public static void CamShake(float intense, float during)
+    // {
+    //     instance.camEffect.SetShake(intense, during);
+    // }
 
 
 

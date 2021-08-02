@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7e9b9a4b915e248950b7f7da4cce21, type: 3}
   m_Name: BashAttack
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  damage: 3
+  damage: 10
   range: 0.88
   attackCount: 20
